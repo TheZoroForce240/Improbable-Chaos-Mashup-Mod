@@ -3981,6 +3981,12 @@ class PlayState extends MusicBeatState
 					{
 							badNoteCheck();
 					}
+					else if (!FlxG.save.data.ghost)
+						{
+							for (shit in 0...pressArray.length)
+								if (pressArray[shit])
+									noteMiss(shit);
+						}
 				}
 				
 				var condition = ((up || right || down || left) && generatedMusic || (upHold || downHold || leftHold || rightHold) && loadRep && generatedMusic);
