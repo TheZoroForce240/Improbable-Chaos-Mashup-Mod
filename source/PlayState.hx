@@ -3451,12 +3451,12 @@ class PlayState extends MusicBeatState
 					if (daNote.noteType == 2)
 						{
 							interupt = true;
-							health -= 0.7;
+							health -= 0.3;
 							FlxG.sound.play(Paths.sound('energy shot', 'clown'));
 						}
 					if (daNote.noteType == 1)
 						{
-							health -= 100;
+							health -= 2;
 							FlxG.sound.play(Paths.sound('death', 'clown'));
 						}
 					if (daNote.noteType == 4)
@@ -3468,18 +3468,26 @@ class PlayState extends MusicBeatState
 					ss = false;
 					goods++;
 					if (health < 2 && !grabbed)
-						health += 0.04;
+						if (!FlxG.save.data.ghost)
+							{
+								health += 0.065;
+							}
+						else
+							health += 0.04;
+
+						
 					if (FlxG.save.data.accuracyMod == 0)
 						totalNotesHit += 0.75;
 				case 'sick':
 					if (daNote.noteType == 2)
 						{
+							interupt = true;
 							health += 1;
 							FlxG.sound.play(Paths.sound('thunder_2'));
 						}
 					if (daNote.noteType == 1)
 						{
-							health -= 100;
+							health -= 2;
 							FlxG.sound.play(Paths.sound('death', 'clown'));
 						}
 					if (daNote.noteType == 4)
@@ -3487,7 +3495,12 @@ class PlayState extends MusicBeatState
 							FlxG.sound.play(Paths.sound('shooters', 'shared'));
 						}
 					if (health < 2 && !grabbed)
-						health += 0.1 - healthDrain;
+						if (!FlxG.save.data.ghost)
+							{
+								health += 0.2 - healthDrain;
+							}
+						else
+							health += 0.1 - healthDrain;					
 					if (FlxG.save.data.accuracyMod == 0)
 						totalNotesHit += 1;
 					sicks++;
@@ -3884,7 +3897,7 @@ class PlayState extends MusicBeatState
 												//if (controlArray[ignoreList[shit]])
 													//inIgnoreList = true;
 											//}
-											if (!inIgnoreList && !theFunne && startedCountdown && !cs_reset)
+											if (!inIgnoreList && !theFunne && startedCountdown && !cs_reset && !grace)
 												if (coolNote.noteType == 1)
 													{
 														missType = 1;
@@ -3977,7 +3990,7 @@ class PlayState extends MusicBeatState
 						}
 						
 					}
-					else if (!theFunne && startedCountdown && !cs_reset)
+					else if (!theFunne && startedCountdown && !cs_reset && !grace)
 					{
 							badNoteCheck();
 					}
@@ -4226,8 +4239,16 @@ class PlayState extends MusicBeatState
 	{
 		if (!boyfriend.stunned)
 		{
-			health -= 0.04;
-			totalDamageTaken += 0.04;
+			if (!FlxG.save.data.ghost)
+			{
+				health -= 0.02;
+				totalDamageTaken += 0.02;
+			}
+			else 
+			{
+				health -= 0.04;
+				totalDamageTaken += 0.04;
+			}
 			interupt = true;
 			if (combo > 5 && gf.animOffsets.exists('sad'))
 			{
@@ -4395,6 +4416,8 @@ class PlayState extends MusicBeatState
 			
 			var mashing:Int = 0;
 			var mashViolations:Int = 0;
+
+			var grace:Bool = false;
 		
 			function noteCheck(controlArray:Array<Bool>, note:Note):Void // sorry lol
 				{
@@ -4414,7 +4437,7 @@ class PlayState extends MusicBeatState
 								{
 									goodNoteHit(note);
 								}
-								else if (!theFunne && startedCountdown && !cs_reset) 
+								else if (!theFunne && startedCountdown && !cs_reset && !grace) 
 									badNoteCheck();
 							}
 						}
@@ -4547,6 +4570,11 @@ class PlayState extends MusicBeatState
 							note.destroy();
 							
 							updateAccuracy();
+							grace = true;
+							new FlxTimer().start(0.25, function(tmr:FlxTimer)
+							{
+								grace = false;
+							});
 						}
 					}
 
