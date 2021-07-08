@@ -819,7 +819,6 @@ class PlayState extends MusicBeatState
 			add(converHole);
 			add(dad.exSpikes);
 			add(tabi);
-			add(sky);
 		}
 		
 		add(boyfriend);
@@ -2767,7 +2766,6 @@ class PlayState extends MusicBeatState
 									}
 								if (issky)
 									{
-										sky.playAnim('singLEFT' + altAnim, true);
 										if (daNote.isSustainNote)
 											{
 												health -= 0.00025;
@@ -2860,7 +2858,6 @@ class PlayState extends MusicBeatState
 										}
 									if (issky)
 										{
-											sky.playAnim('singDOWN' + altAnim, true);
 											if (daNote.isSustainNote)
 												{
 													health -= 0.00025;
@@ -2952,7 +2949,6 @@ class PlayState extends MusicBeatState
 										}
 									if (issky)
 										{
-											sky.playAnim('singUP' + altAnim, true);
 											if (daNote.isSustainNote)
 												{
 													health -= 0.00025;
@@ -3041,7 +3037,6 @@ class PlayState extends MusicBeatState
 										}
 									if (issky)
 										{
-											sky.playAnim('singRIGHT' + altAnim, true);
 											if (daNote.isSustainNote)
 												{
 													health -= 0.00025;
