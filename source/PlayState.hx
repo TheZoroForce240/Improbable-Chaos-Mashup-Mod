@@ -3454,7 +3454,7 @@ class PlayState extends MusicBeatState
 					if (daNote.noteType == 2)
 						{
 							interupt = true;
-							health += 0.1;
+							health += 0.2;
 						}
 					else if (daNote.noteType == 1)
 						{
@@ -3484,7 +3484,7 @@ class PlayState extends MusicBeatState
 					if (daNote.noteType == 2)
 						{
 							interupt = true;
-							health += 0.6;
+							health += 0.7;
 							FlxG.sound.play(Paths.sound('thunder_2'));
 						}
 					else if (daNote.noteType == 1)
