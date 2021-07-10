@@ -301,10 +301,8 @@ class Note extends FlxSprite
 						}
 						animation.addByPrefix('redScroll', 'red fire');
 						animation.addByPrefix('purpleScroll', 'purple fire');
-
 						if(FlxG.save.data.downscroll)
 							flipY = true;
-
 						x -= 50;
 					}*/
 

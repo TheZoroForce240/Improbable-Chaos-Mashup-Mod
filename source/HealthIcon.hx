@@ -58,7 +58,7 @@ class HealthIcon extends FlxSprite
 				animation.add('whitty', [0, 1], 0, false, isPlayer);
 				animation.add('hex', [0, 1], 0, false, isPlayer);
 				animation.add('ruv', [0, 1], 0, false, isPlayer);
-				animation.add('sky', [0, 1], 0, false, isPlayer);
+				animation.add('cass', [0, 1], 0, false, isPlayer);
 				animation.add('bob', [0, 1], 0, false, isPlayer);
 				animation.add('zardy', [0, 1], 0, false, isPlayer);
 				animation.add('tabi', [0, 1], 0, false, isPlayer);

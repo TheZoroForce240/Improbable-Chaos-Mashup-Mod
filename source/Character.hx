@@ -157,20 +157,20 @@ class Character extends FlxSprite
 				
 				playAnim('idle');
 		
-			case 'sky':
-				tex = Paths.getSparrowAtlas('characters/Left/sky_mad_assets');
+			case 'cass':
+				tex = Paths.getSparrowAtlas('characters/Left/cass');
 				frames = tex;
-				animation.addByPrefix('idle', 'sky mad idle', 24);
-				animation.addByPrefix('singUP', 'sky mad up', 24);
-				animation.addByPrefix('singRIGHT', 'sky mad right', 24);
-				animation.addByPrefix('singDOWN', 'sky mad down', 24);
-				animation.addByPrefix('singLEFT', 'sky mad left', 24);
+				animation.addByPrefix('idle', 'Mom Idle', 24);
+				animation.addByPrefix('singUP', 'Mom Up Pose', 24);
+				animation.addByPrefix('singRIGHT', 'Mom Pose Left', 24);
+				animation.addByPrefix('singDOWN', 'MOM DOWN POSE', 24);
+				animation.addByPrefix('singLEFT', 'Mom Left Pose', 24);
 
 				addOffset('idle');
-				addOffset("singUP", 24, -10);
-				addOffset("singRIGHT", 10, 7);
-				addOffset("singLEFT", -10, 10);
-				addOffset("singDOWN", 1, 2);
+				addOffset("singUP", 24, 61);
+				addOffset("singRIGHT", 30, -53);
+				addOffset("singLEFT", 230, -20);
+				addOffset("singDOWN", 1, -138);
 				
 				playAnim('idle');
 			

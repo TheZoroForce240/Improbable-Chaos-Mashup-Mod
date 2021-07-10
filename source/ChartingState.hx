@@ -39,6 +39,7 @@ using StringTools;
 class ChartingState extends MusicBeatState
 {
 	var _file:FileReference;
+	public var playClaps:Bool = false;
 
 	var UI_box:FlxUITabMenu;
 
@@ -85,6 +86,7 @@ class ChartingState extends MusicBeatState
 	var leftIcon:HealthIcon;
 	var rightIcon:HealthIcon;
 	var keyAmmo:Array<Int> = [4, 6, 9];
+	var claps:Array<Note> = [];
 
 	override function create()
 	{
@@ -149,13 +151,13 @@ class ChartingState extends MusicBeatState
 		bpmTxt.scrollFactor.set();
 		add(bpmTxt);
 
-		strumLine = new FlxSprite(0, 50).makeGraphic(Std.int(FlxG.width / 2), 4);
+		strumLine = new FlxSprite(0, 50).makeGraphic(Std.int(FlxG.width / 1), 4);
 		add(strumLine);
 
 		dummyArrow = new FlxSprite().makeGraphic(GRID_SIZE, GRID_SIZE);
 		add(dummyArrow);
 
-		var tabs = [
+		var tabs = [ 
 			{name: "Song", label: 'Song'},
 			{name: "Section", label: 'Section'},
 			{name: "Note", label: 'Note'}
@@ -252,6 +254,12 @@ class ChartingState extends MusicBeatState
 		var stepperBPM:FlxUINumericStepper = new FlxUINumericStepper(10, 65, 1, 1, 1, 339, 0);
 		stepperBPM.value = Conductor.bpm;
 		stepperBPM.name = 'song_bpm';
+		var hitsounds = new FlxUICheckBox(10, 95 + 60, null, null, "Play hitsounds", 100);
+		hitsounds.checked = false;
+		hitsounds.callback = function()
+		{
+			playClaps = hitsounds.checked;
+		};
 
 		var characters:Array<String> = CoolUtil.coolTextFile(Paths.txt('characterList'));
 
@@ -284,6 +292,7 @@ class ChartingState extends MusicBeatState
 		tab_group_song.add(stepperSpeed);
 		tab_group_song.add(player1DropDown);
 		tab_group_song.add(player2DropDown);
+		tab_group_song.add(hitsounds);
 
 		UI_box.addGroup(tab_group_song);
 		UI_box.scrollFactor.set();
@@ -417,7 +426,6 @@ class ChartingState extends MusicBeatState
 			loopCheck.checked = curNoteSelected.doesLoop;
 			tooltips.add(loopCheck, {title: 'Section looping', body: "Whether or not it's a simon says style section", style: tooltipType});
 			bullshitUI.add(loopCheck);
-
 		 */
 	}
 
@@ -538,8 +546,26 @@ class ChartingState extends MusicBeatState
 		_song.song = typingShit.text;
 
 		strumLine.y = getYfromStrum((Conductor.songPosition - sectionStartTime()) % (Conductor.stepCrochet * _song.notes[curSection].lengthInSteps));
-		if (_song.mania == 2) strumLine.x = 220;
-		else strumLine.x = 0;
+		if (_song.mania == 2) strumLine.x = -70;
+		else strumLine.x = -300;
+
+		if (playClaps)
+			{
+				curRenderedNotes.forEach(function(note:Note)
+				{
+					if (FlxG.sound.music.playing)
+					{
+						FlxG.overlap(strumLine, note, function(_, _)
+						{
+							if(!claps.contains(note))
+							{
+								claps.push(note);
+								FlxG.sound.play(Paths.sound('SNAP'));
+							}
+						});
+					}
+				});
+			}
 
 		if (curBeat % 4 == 0 && curStep >= 16 * (curSection + 1))
 		{
@@ -649,6 +675,7 @@ class ChartingState extends MusicBeatState
 				{
 					FlxG.sound.music.pause();
 					vocals.pause();
+					claps.splice(0, claps.length);
 				}
 				else
 				{
@@ -680,6 +707,7 @@ class ChartingState extends MusicBeatState
 				{
 					FlxG.sound.music.pause();
 					vocals.pause();
+					claps.splice(0, claps.length);
 
 					var daTime:Float = 700 * FlxG.elapsed;
 
@@ -734,7 +762,7 @@ class ChartingState extends MusicBeatState
 			+ Std.string(FlxMath.roundDecimal(FlxG.sound.music.length / 1000, 2))
 			+ "\nSection: "
 			+ curSection
-			+ "\nCur Step"
+			+ "\nCurStep: "
 			+ curStep;
 		super.update(elapsed);
 	}
@@ -1072,23 +1100,18 @@ class ChartingState extends MusicBeatState
 		function calculateSectionLengths(?sec:SwagSection):Int
 		{
 			var daLength:Int = 0;
-
 			for (i in _song.notes)
 			{
 				var swagLength = i.lengthInSteps;
-
 				if (i.typeOfSection == Section.COPYCAT)
 					swagLength * 2;
-
 				daLength += swagLength;
-
 				if (sec != null && sec == i)
 				{
 					trace('swag loop??');
 					break;
 				}
 			}
-
 			return daLength;
 	}*/
 	private var daSpacing:Float = 0.3;

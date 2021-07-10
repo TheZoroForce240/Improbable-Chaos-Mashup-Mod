@@ -95,7 +95,7 @@ class PlayState extends MusicBeatState
 	public var hex:Character;
 	public var ruv:Character;
 
-	public var sky:Character;
+	public var cass:Character;
 	public var bob:Character;
 	public var zardy:Character;
 	public var tabi:Character;
@@ -672,7 +672,7 @@ class PlayState extends MusicBeatState
 
 		tabi = new Character(-200, 80, 'tabi');
 		agoti = new Character(-350, -100, 'agoti');
-		sky = new Character(-50, 300, 'sky');
+		cass = new Character(50, 200, 'cass');
 		tordbot = new Character(-800, -2100, 'tordbot');
 		tordbot.scale.set(1.5, 1.5);
 		zardy = new Character(430, -230, 'zardy');
@@ -690,7 +690,7 @@ class PlayState extends MusicBeatState
 
 		tabi.alpha = 0;
 		agoti.alpha = 0;
-		sky.alpha = 0;
+		cass.alpha = 0;
 		tordbot.alpha = 0;
 		zardy.alpha = 0;
 		bob.alpha = 0;
@@ -819,6 +819,7 @@ class PlayState extends MusicBeatState
 			add(converHole);
 			add(dad.exSpikes);
 			add(tabi);
+			add(cass);
 		}
 		
 		add(boyfriend);
@@ -1940,7 +1941,7 @@ class PlayState extends MusicBeatState
 						island.alpha += 0.05;
 						tabi.alpha += 0.05;
 						agoti.alpha += 0.05;
-						sky.alpha += 0.05;
+						cass.alpha += 0.05;
 						tordbot.alpha += 0.05;
 						zardy.alpha += 0.05;
 						bob.alpha += 0.05;
@@ -1971,7 +1972,7 @@ class PlayState extends MusicBeatState
 						{
 							tabi.alpha = 1;
 							agoti.alpha = 1;
-							sky.alpha = 1;
+							cass.alpha = 1;
 							tordbot.alpha = 1;
 							zardy.alpha = 1;
 							bob.alpha = 1;
@@ -2534,7 +2535,7 @@ class PlayState extends MusicBeatState
 		/* if (FlxG.keys.justPressed.NINE)
 			FlxG.switchState(new Charting()); */
 
-		#if debug
+		//#if debug
 		if (FlxG.keys.justPressed.EIGHT){
             if(FlxG.keys.pressed.SHIFT){
                 FlxG.switchState(new AnimationDebug(SONG.player1));
@@ -2546,7 +2547,7 @@ class PlayState extends MusicBeatState
                 FlxG.switchState(new AnimationDebug(SONG.player2));
             }
         }
-		#end
+		//#end
 
 		if (startingSong)
 		{
@@ -2721,7 +2722,7 @@ class PlayState extends MusicBeatState
 							}
 							if (daNote.noteType == 4)
 							{
-								FlxG.sound.play(Paths.sound('shooters', 'shared'));
+								FlxG.sound.play(Paths.sound('shooters', 'shared'), 0.6);
 							}
 		
 							//trace("DA ALT THO?: " + SONG.notes[Math.floor(curStep / 16)].altAnim);
@@ -2766,6 +2767,7 @@ class PlayState extends MusicBeatState
 									}
 								if (issky)
 									{
+										cass.playAnim('singLEFT' + altAnim, true);
 										if (daNote.isSustainNote)
 											{
 												health -= 0.00025;
@@ -2858,6 +2860,7 @@ class PlayState extends MusicBeatState
 										}
 									if (issky)
 										{
+											cass.playAnim('singDOWN' + altAnim, true);
 											if (daNote.isSustainNote)
 												{
 													health -= 0.00025;
@@ -2949,6 +2952,7 @@ class PlayState extends MusicBeatState
 										}
 									if (issky)
 										{
+											cass.playAnim('singUP' + altAnim, true);
 											if (daNote.isSustainNote)
 												{
 													health -= 0.00025;
@@ -3037,6 +3041,7 @@ class PlayState extends MusicBeatState
 										}
 									if (issky)
 										{
+											cass.playAnim('singRIGHT' + altAnim, true);
 											if (daNote.isSustainNote)
 												{
 													health -= 0.00025;
@@ -3205,9 +3210,11 @@ class PlayState extends MusicBeatState
 								{
 									if (daNote.isSustainNote && daNote.wasGoodHit)
 										{
+
 											daNote.kill();
 											notes.remove(daNote, true);
 											daNote.destroy();
+											
 										}
 									else
 										{
@@ -3216,6 +3223,7 @@ class PlayState extends MusicBeatState
 												health -= 0.075;
 												vocals.volume = 0;
 												noteMiss(daNote.noteData);
+
 											}
 										}
 					
@@ -3234,7 +3242,7 @@ class PlayState extends MusicBeatState
 								}
 								case 4: 
 									health -= 1;
-									FlxG.sound.play(Paths.sound('shooters', 'shared'));
+									FlxG.sound.play(Paths.sound('shooters', 'shared'), 0.6);
 									vocals.volume = 0;
 									noteMiss(daNote.noteData);
 							}	
@@ -3393,9 +3401,9 @@ class PlayState extends MusicBeatState
 							health -= 2;
 							FlxG.sound.play(Paths.sound('death', 'clown'));
 						}
-					if (daNote.noteType == 4)
+					else if (daNote.noteType == 4)
 						{
-							FlxG.sound.play(Paths.sound('shooters', 'shared'));
+							FlxG.sound.play(Paths.sound('shooters', 'shared'), 0.6);
 						}
 					if (daNote.noteType == 1)
 						{
@@ -3418,12 +3426,12 @@ class PlayState extends MusicBeatState
 				case 'bad':
 					if (daNote.noteType == 2)
 						{
-							health -= 1.2;
+							health -= 0.6;
 							FlxG.sound.play(Paths.sound('energy shot', 'clown'));
 						}
-					if (daNote.noteType == 4)
+					else if (daNote.noteType == 4)
 						{
-							FlxG.sound.play(Paths.sound('shooters', 'shared'));
+							FlxG.sound.play(Paths.sound('shooters', 'shared'), 0.6);
 						}
 					if (daNote.noteType == 1)
 						{
@@ -3446,17 +3454,16 @@ class PlayState extends MusicBeatState
 					if (daNote.noteType == 2)
 						{
 							interupt = true;
-							health -= 0.3;
-							FlxG.sound.play(Paths.sound('energy shot', 'clown'));
+							health += 0.1;
 						}
-					if (daNote.noteType == 1)
+					else if (daNote.noteType == 1)
 						{
 							health -= 2;
 							FlxG.sound.play(Paths.sound('death', 'clown'));
 						}
-					if (daNote.noteType == 4)
+					else if (daNote.noteType == 4)
 						{
-							FlxG.sound.play(Paths.sound('shooters', 'shared'));
+							FlxG.sound.play(Paths.sound('shooters', 'shared'), 0.6);
 						}
 					daRating = 'good';
 					score = 200;
@@ -3477,17 +3484,17 @@ class PlayState extends MusicBeatState
 					if (daNote.noteType == 2)
 						{
 							interupt = true;
-							health += 1;
+							health += 0.6;
 							FlxG.sound.play(Paths.sound('thunder_2'));
 						}
-					if (daNote.noteType == 1)
+					else if (daNote.noteType == 1)
 						{
 							health -= 2;
 							FlxG.sound.play(Paths.sound('death', 'clown'));
 						}
-					if (daNote.noteType == 4)
+					else if (daNote.noteType == 4)
 						{
-							FlxG.sound.play(Paths.sound('shooters', 'shared'));
+							FlxG.sound.play(Paths.sound('shooters', 'shared'), 0.6);
 						}
 					if (health < 2 && !grabbed)
 						if (!FlxG.save.data.ghost)
@@ -3897,10 +3904,12 @@ class PlayState extends MusicBeatState
 													{
 														missType = 1;
 														badNoteCheck();
+														//goodNoteHit(daNote);
 													}
 												else{
 													missType = 0;
 													badNoteCheck();
+													//goodNoteHit(daNote);
 												}
 												
 										}
@@ -4012,6 +4021,7 @@ class PlayState extends MusicBeatState
 					{
 						if (daNote.canBeHit && daNote.mustPress && daNote.isSustainNote)
 						{
+							//goodNoteHit(daNote);
 							if (mania == 0)
 							{
 								switch (daNote.noteData)
@@ -4236,7 +4246,7 @@ class PlayState extends MusicBeatState
 		{
 			if (!FlxG.save.data.ghost)
 			{
-				health -= 0.02;
+				health -= 0.03;
 				totalDamageTaken += 0.02;
 			}
 			else 
