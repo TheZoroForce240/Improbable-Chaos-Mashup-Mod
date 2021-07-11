@@ -193,7 +193,7 @@ class DistractionsAndEffectsOption extends Option
 
 	private override function updateDisplay():String
 	{
-		return "Distractions " + (!FlxG.save.data.distractions ? "off" : "on");
+		return "Optimization " + (!FlxG.save.data.distractions ? "off" : "on");
 	}
 }
 
@@ -351,14 +351,14 @@ class NPSDisplayOption extends Option
 
 	public override function press():Bool
 	{
-		FlxG.save.data.npsDisplay = !FlxG.save.data.npsDisplay;
+		FlxG.save.data.optimize = !FlxG.save.data.optimize;
 		display = updateDisplay();
 		return true;
 	}
 
 	private override function updateDisplay():String
 	{
-		return "NPS Display " + (!FlxG.save.data.npsDisplay ? "off" : "on");
+		return "Optimization " + (!FlxG.save.data.optimize ? "off" : "on");
 	}
 }
 

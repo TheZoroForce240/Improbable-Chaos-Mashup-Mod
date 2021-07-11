@@ -138,6 +138,8 @@ class PlayState extends MusicBeatState
 
 	public var missType:Int = 0;
 
+	public var optimize:Bool = false;
+
 	private var shaggyT:FlxTrail;
 	private var exshaggyT:FlxTrail;
 	private var senpaiT:FlxTrail;
@@ -240,6 +242,7 @@ class PlayState extends MusicBeatState
 
 		generatedMusic = false;
 		theFunne = FlxG.save.data.newInput;
+		optimize = FlxG.save.data.optimize;
 		if (FlxG.sound.music != null)
 			FlxG.sound.music.stop();
 
@@ -497,11 +500,15 @@ class PlayState extends MusicBeatState
 			sarvbg.scrollFactor.set(0.95, 0.95);
 			sarvbg.scale.set(0.8, 0.8);
 			sarvbg.alpha = 0;
+
+			
 			add(sarvbg);
 			add(opheebopscoobbg);
 			add(boomboxbg);
 			add(gfbg);
 			add(carolbg);
+				
+
 
 			bobmadshake = new FlxSprite( -198, -118);
 			bobmadshake.frames = Paths.getSparrowAtlas('bobscreen');
@@ -509,6 +516,7 @@ class PlayState extends MusicBeatState
 			bobmadshake.scrollFactor.set(0, 0);
 			bobmadshake.scale.set(2.5, 2.5);
 			bobmadshake.visible = false;
+	
 			
 			bobsound = new FlxSound().loadEmbedded(Paths.sound('bobscreen'));
 		}
@@ -669,7 +677,6 @@ class PlayState extends MusicBeatState
 
 		//character stuff
 		
-
 		tabi = new Character(-200, 80, 'tabi');
 		agoti = new Character(-350, -100, 'agoti');
 		cass = new Character(50, 200, 'cass');
@@ -719,6 +726,7 @@ class PlayState extends MusicBeatState
 		senpaiT.alpha = 0;
 
 
+
 		boyfriend = new Boyfriend(770, 450, bfVersion);
 
 		// REPOSITIONING PER STAGE
@@ -764,6 +772,20 @@ class PlayState extends MusicBeatState
 		
 		add(dad);
 		
+		if (curStage == 'auditorHell')
+		{
+			add(bob);
+			add(shaggyT);
+			add(shaggy);
+			add(whitty);
+			add(ruv);
+			add(garcello);
+			add(hex);
+			add(hankchar);
+			add(pico);
+
+			add(senpai);
+		}
 		if (curStage == 'shaggyHell')
 		{
 			// Clown init
@@ -789,17 +811,7 @@ class PlayState extends MusicBeatState
 
 		else if (curStage == 'auditorHell')
 		{
-			add(bob);
-			add(shaggyT);
-			add(shaggy);
-			add(whitty);
-			add(ruv);
-			add(garcello);
-			add(hex);
-			add(hankchar);
-			add(pico);
 
-			add(senpai);
 
 			// Clown init
 			cloneOne = new FlxSprite(0,0);
@@ -818,14 +830,15 @@ class PlayState extends MusicBeatState
 			add(cover);
 			add(converHole);
 			add(dad.exSpikes);
-			add(tabi);
-			add(cass);
+
 		}
 		
 		add(boyfriend);
 
 		if (curStage == 'auditorHell')
 		{
+			add(tabi);
+			add(cass);
 			add(matt);
 			add(bobmadshake);
 		}
@@ -1935,8 +1948,9 @@ class PlayState extends MusicBeatState
 					});
 				
 
-				
-				new FlxTimer().start(0.4, function(fade:FlxTimer)
+				if (!optimize)
+				{
+					new FlxTimer().start(0.4, function(fade:FlxTimer)
 					{
 						island.alpha += 0.05;
 						tabi.alpha += 0.05;
@@ -1995,8 +2009,40 @@ class PlayState extends MusicBeatState
 							opheebopscoobbg.alpha = 1;
 							sarvbg.alpha = 1;
 							boomboxbg.alpha = 1;
+							if (FlxG.save.data.optimize)
+								{
+									remove(tabi);
+									remove(agoti);
+									remove(cass);
+									remove(tordbot);
+									remove(zardy);
+									remove(bob);
+									remove(senpai);
+									remove(whitty);
+									remove(matt);
+									remove(pico);
+									remove(hankchar);
+									remove(garcello);
+									remove(shaggy);
+									remove(ruv);
+									remove(hex);
+									remove(shaggyT);
+									remove(senpaiT);
+									remove(gfbg);
+									remove(carolbg);
+									remove(opheebopscoobbg);
+									remove(sarvbg);
+									remove(boomboxbg);
+									remove(island);
+									remove(cloneOne);
+									remove(cloneTwo);
+									remove(bobmadshake);
+								}
 						}
+
 					});
+				}
+				
 			}
 
 		startTimer = new FlxTimer().start(Conductor.crochet / 1000, function(tmr:FlxTimer)
@@ -2745,7 +2791,8 @@ class PlayState extends MusicBeatState
 								if (istabi)
 									{
 										tabi.playAnim('singLEFT' + altAnim, true);
-										FlxG.camera.shake(0.008, 0.02, null, true);
+										if (!FlxG.save.data.optimize)
+											FlxG.camera.shake(0.008, 0.02, null, true);
 										if (daNote.isSustainNote)
 											{
 												health -= 0.00025;
@@ -2838,7 +2885,8 @@ class PlayState extends MusicBeatState
 									if (istabi)
 										{
 											tabi.playAnim('singDOWN' + altAnim, true);
-											FlxG.camera.shake(0.008, 0.02, null, true);
+											if (!FlxG.save.data.optimize)
+												FlxG.camera.shake(0.008, 0.02, null, true);
 											if (daNote.isSustainNote)
 												{
 													health -= 0.00025;
@@ -2930,7 +2978,8 @@ class PlayState extends MusicBeatState
 									if (istabi)
 										{
 											tabi.playAnim('singUP' + altAnim, true);
-											FlxG.camera.shake(0.008, 0.02, null, true);
+											if (!FlxG.save.data.optimize)
+												FlxG.camera.shake(0.008, 0.02, null, true);
 											if (daNote.isSustainNote)
 												{
 													health -= 0.00025;
@@ -3021,7 +3070,8 @@ class PlayState extends MusicBeatState
 									if (istabi)
 										{
 											tabi.playAnim('singRIGHT' + altAnim, true);
-											FlxG.camera.shake(0.008, 0.02, null, true);
+											if (!FlxG.save.data.optimize)
+												FlxG.camera.shake(0.008, 0.02, null, true);
 											if (daNote.isSustainNote)
 												{
 													health -= 0.00025;
@@ -3170,7 +3220,7 @@ class PlayState extends MusicBeatState
 										}
 									FlxG.camera.shake(0.02,0.2);
 								case 'exTricky': // 60% chance
-									if (istricky)
+									if (istricky && !FlxG.save.data.optimize)
 									{
 										if (FlxG.random.bool(30) && !spookyRendered && !daNote.isSustainNote) // create spooky text :flushed:
 											{
@@ -4536,7 +4586,9 @@ class PlayState extends MusicBeatState
 							if (isruv)
 								{
 									ruv.playAnim('sing' + sDir[note.noteData], true);
-									FlxG.camera.shake(0.03, 0.03);
+									if (!FlxG.save.data.optimize)
+										FlxG.camera.shake(0.03, 0.03);
+									
 								}
 							if (isshaggy)
 								{
@@ -4666,7 +4718,8 @@ class PlayState extends MusicBeatState
 					isbf = false;
 					issky = false;
 				case 350: 
-					Bobismad();
+					if (!FlxG.save.data.optimize)
+						Bobismad();
 				case 384:
 					doStopSign(0);
 					issenpai = false;
@@ -4864,7 +4917,8 @@ class PlayState extends MusicBeatState
 					istabi = true;
 					issky = true;
 				case 2129: 
-					Bobismad();
+					if (!FlxG.save.data.optimize)
+						Bobismad();
 				case 2143: 
 					ismatt = false;
 					istabi = false;
@@ -4901,8 +4955,11 @@ class PlayState extends MusicBeatState
 					doStopSign(3);
 				case 2395: 
 					iszardy = true;
-					FlxG.camera.shake(0.05, 0.05);
-					zardy.alpha = 0.4;
+					if (!FlxG.save.data.optimize)
+					{
+						FlxG.camera.shake(0.05, 0.05);
+						zardy.alpha = 0.4;
+					}
 				case 2399: 
 					istricky = false;
 					istabi = false;
@@ -4966,7 +5023,8 @@ class PlayState extends MusicBeatState
 					ishankchar = false;
 					isbob = true;
 				case 2861: 
-					Bobismad();
+					if (!FlxG.save.data.optimize)
+						Bobismad();
 				case 2879: 
 					iswhitty = true;
 			}
@@ -5128,7 +5186,7 @@ class PlayState extends MusicBeatState
 				}
 			}
 			
-		if (curStage == 'auditorHell')
+		if (curStage == 'auditorHell' && !FlxG.save.data.optimize)
 		{
 			if (curBeat % 8 == 4 && beatOfFuck != curBeat)
 			{
