@@ -32,8 +32,9 @@ class OptionsMenu extends MusicBeatState
 		new OptionCatagory("Appearance", [
 			#if desktop
 			new AccuracyOption("Display accuracy information."),
-			new NPSDisplayOption("Shows your current Notes Per Second."),
-			new SongPositionOption("Show the songs current position (as a bar)"),
+			//new NPSDisplayOption("Shows your current Notes Per Second."),
+			new AltNoteSkinOption("Show the songs current position (as a bar)"),
+			new RegNoteSkinOption("Show the songs current position (as a bar)"),
 			new DownscrollOption("Change the layout of the strumline.")
 			#else
 			new DistractionsAndEffectsOption("Toggle stage distractions that can hinder your gameplay.")
@@ -41,9 +42,18 @@ class OptionsMenu extends MusicBeatState
 		]),
 		
 		new OptionCatagory("Misc", [
-			new FPSOption("Toggle the FPS Counter")
-		])
-		
+			new FPSOption("Toggle the FPS Counter"),
+			new BETACSOption("Toggle BETACS Mode"),
+			new SkyOption("Toggle sky replacement"),
+			new SundayOption("Toggle sunday")
+		]),
+		new OptionCatagory("Optimization", [
+			new CharacterOption("Toggle Characters"),
+			new BGOption("Toggle Background"),
+			new EffectsOption("Toggle Effects(jumpscare, shake and stuff)"),
+			new SignOption("Toggle stop signs"),
+			new GremOption("Toggle gremlin")
+		])	
 	];
 
 	private var currentDescription:String = "";

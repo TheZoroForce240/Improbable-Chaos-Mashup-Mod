@@ -149,9 +149,45 @@ class Note extends FlxSprite
 
 
 			default:
-				if(FlxG.save.data.regnoteskin == false)
+				if(FlxG.save.data.regnoteskin == false && FlxG.save.data.altnoteskin == false)
 					{
 						frames = Paths.getSparrowAtlas('tabi_NOTE_assets');
+
+						animation.addByPrefix('greenScroll', 'green0');
+						animation.addByPrefix('redScroll', 'red0');
+						animation.addByPrefix('blueScroll', 'blue0');
+						animation.addByPrefix('purpleScroll', 'purple0');
+						animation.addByPrefix('whiteScroll', 'white0');
+						animation.addByPrefix('yellowScroll', 'yellow0');
+						animation.addByPrefix('violetScroll', 'violet0');
+						animation.addByPrefix('blackScroll', 'black0');
+						animation.addByPrefix('darkScroll', 'dark0');
+
+
+						animation.addByPrefix('purpleholdend', 'pruple end hold');
+						animation.addByPrefix('greenholdend', 'green hold end');
+						animation.addByPrefix('redholdend', 'red hold end');
+						animation.addByPrefix('blueholdend', 'blue hold end');
+						animation.addByPrefix('whiteholdend', 'white hold end');
+						animation.addByPrefix('yellowholdend', 'yellow hold end');
+						animation.addByPrefix('violetholdend', 'violet hold end');
+						animation.addByPrefix('blackholdend', 'black hold end');
+						animation.addByPrefix('darkholdend', 'dark hold end');
+
+						animation.addByPrefix('purplehold', 'purple hold piece');
+						animation.addByPrefix('greenhold', 'green hold piece');
+						animation.addByPrefix('redhold', 'red hold piece');
+						animation.addByPrefix('bluehold', 'blue hold piece');
+						animation.addByPrefix('whitehold', 'white hold piece');
+						animation.addByPrefix('yellowhold', 'yellow hold piece');
+						animation.addByPrefix('violethold', 'violet hold piece');
+						animation.addByPrefix('blackhold', 'black hold piece');
+						animation.addByPrefix('darkhold', 'dark hold piece');
+						setGraphicSize(Std.int(width * noteScale));
+					}
+				else if(FlxG.save.data.altnoteskin == true && FlxG.save.data.regnoteskin == false)
+					{
+						frames = Paths.getSparrowAtlas('altnoteassets/NOTE_assets');
 
 						animation.addByPrefix('greenScroll', 'green0');
 						animation.addByPrefix('redScroll', 'red0');

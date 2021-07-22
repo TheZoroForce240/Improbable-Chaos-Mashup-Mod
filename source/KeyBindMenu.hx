@@ -32,14 +32,29 @@ class KeyBindMenu extends MusicBeatState
     var keyTextDisplay:FlxText;
     var keyWarning:FlxText;
     var warningTween:FlxTween;
-    var keyText:Array<String> = ["LEFT", "DOWN", "UP", "RIGHT"];
-    var defaultKeys:Array<String> = ["A", "S", "W", "D", "R"];
+    var keyText:Array<String> = ["LEFT", "DOWN", "UP", "RIGHT", "N0", "N1", "N2", "N3", "N4", "N5", "N6", "N7", "N8", "L1", "U1", "R1", "L2", "D1", "R2"];
+    var defaultKeys:Array<String> = ["A", "S", "W", "D", "A", "S", "D", "F", "SPACE", "H", "J", "K", "L", "S", "D", "F", "J", "K", "L"];
     var curSelected:Int = 0;
 
     var keys:Array<String> = [FlxG.save.data.leftBind,
                               FlxG.save.data.downBind,
                               FlxG.save.data.upBind,
-                              FlxG.save.data.rightBind];
+                              FlxG.save.data.rightBind,
+                              FlxG.save.data.N0Bind,
+                              FlxG.save.data.N1Bind,
+                              FlxG.save.data.N2Bind,
+                              FlxG.save.data.N3Bind,
+                              FlxG.save.data.N4Bind,
+                              FlxG.save.data.N5Bind,
+                              FlxG.save.data.N6Bind,
+                              FlxG.save.data.N7Bind,
+                              FlxG.save.data.N8Bind,
+                              FlxG.save.data.L1Bind,
+                              FlxG.save.data.U1Bind,
+                              FlxG.save.data.R1Bind,
+                              FlxG.save.data.L2Bind,
+                              FlxG.save.data.D1Bind,
+                              FlxG.save.data.R2Bind];
 
     var tempKey:String = "";
     var blacklist:Array<String> = ["ESCAPE", "ENTER", "BACKSPACE", "SPACE"];
@@ -74,7 +89,7 @@ class KeyBindMenu extends MusicBeatState
 
         keyTextDisplay = new FlxText(-10, 0, 1280, "", 72);
 		keyTextDisplay.scrollFactor.set(0, 0);
-		keyTextDisplay.setFormat("tahoma-bold.ttf", 54, FlxColor.RED, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		keyTextDisplay.setFormat("tahoma-bold.ttf", 24, FlxColor.RED, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		keyTextDisplay.borderSize = 3;
 		keyTextDisplay.borderQuality = 1;
         add(keyTextDisplay);
@@ -173,7 +188,7 @@ class KeyBindMenu extends MusicBeatState
 
         keyTextDisplay.text = "\n\n";
 
-        for(i in 0...4){
+        for(i in 0...19){
 
             var textStart = (i == curSelected) ? "> " : "  ";
             keyTextDisplay.text += textStart + keyText[i] + ": " + ((keys[i] != keyText[i]) ? (keys[i] + " / ") : "" ) + keyText[i] + " ARROW\n";
@@ -190,6 +205,21 @@ class KeyBindMenu extends MusicBeatState
         FlxG.save.data.downBind = keys[1];
         FlxG.save.data.leftBind = keys[0];
         FlxG.save.data.rightBind = keys[3];
+        FlxG.save.data.N0Bind = keys[4];
+        FlxG.save.data.N1Bind = keys[5];
+        FlxG.save.data.N2Bind = keys[6];
+        FlxG.save.data.N3Bind = keys[7];
+        FlxG.save.data.N4Bind = keys[8];
+        FlxG.save.data.N5Bind = keys[9];
+        FlxG.save.data.N6Bind = keys[10];
+        FlxG.save.data.N7Bind = keys[11];
+        FlxG.save.data.N8Bind = keys[12];
+        FlxG.save.data.L1Bind = keys[13];
+        FlxG.save.data.U1Bind = keys[14];
+        FlxG.save.data.R1Bind = keys[15];
+        FlxG.save.data.L2Bind = keys[16];
+        FlxG.save.data.D1Bind = keys[17];
+        FlxG.save.data.R2Bind = keys[18];
 
         FlxG.save.flush();
 
@@ -199,7 +229,7 @@ class KeyBindMenu extends MusicBeatState
 
     function reset(){
 
-        for(i in 0...5){
+        for(i in 0...18){
             keys[i] = defaultKeys[i];
         }
         quit();
@@ -239,12 +269,12 @@ class KeyBindMenu extends MusicBeatState
 
         trace(notAllowed);
 
-        for(x in 0...keys.length)
+        /*for(x in 0...keys.length)
             {
                 var oK = keys[x];
                 if(oK == r)
                     keys[x] = null;
-            }
+            }*/
 
         if(shouldReturn){
             keys[curSelected] = r;
@@ -264,9 +294,9 @@ class KeyBindMenu extends MusicBeatState
     {
         curSelected += _amount;
                 
-        if (curSelected > 3)
+        if (curSelected > 18)
             curSelected = 0;
         if (curSelected < 0)
-            curSelected = 3;
+            curSelected = 18;
     }
 }

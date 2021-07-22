@@ -71,7 +71,7 @@ class Option
 	public function right():Bool { return throw "stub!"; }
 }
 
-
+ 
 
 class DFJKOption extends Option
 {
@@ -157,7 +157,7 @@ class AccuracyOption extends Option
 	}
 }
 
-class SongPositionOption extends Option
+class RegNoteSkinOption extends Option
 {
 	public function new(desc:String)
 	{
@@ -173,7 +173,26 @@ class SongPositionOption extends Option
 
 	private override function updateDisplay():String
 	{
-		return "Regular Note Skin " + (!FlxG.save.data.regnoteskin ? "off" : "on");
+		return "Regular Note Skin " + (!FlxG.save.data.regnoteskin ? "off" : "on") + " (takes priority)";
+	}
+}
+class AltNoteSkinOption extends Option
+{
+	public function new(desc:String)
+	{
+		super();
+		description = desc;
+	}
+	public override function press():Bool
+	{
+		FlxG.save.data.altnoteskin = !FlxG.save.data.altnoteskin;
+		display = updateDisplay();
+		return true;
+	}
+
+	private override function updateDisplay():String
+	{
+		return "Note Skin: skin by " + (!FlxG.save.data.altnoteskin ? "Sector03" : "HEAVYSTYLES");
 	}
 }
 
@@ -380,5 +399,174 @@ class AccuracyDOption extends Option
 	private override function updateDisplay():String
 	{
 		return "Accuracy Mode: " + (FlxG.save.data.accuracyMod == 0 ? "Accurate" : "Complex");
+	}
+}
+
+//new options
+
+class CharacterOption extends Option
+{
+	public function new(desc:String)
+	{
+		super();
+		description = desc;
+	}
+
+	public override function press():Bool
+	{
+		FlxG.save.data.characters = !FlxG.save.data.characters;
+		//if (FlxG.save.data.characters > 2)
+			//FlxG.save.data.characters = 0;
+		display = updateDisplay();
+		return true;
+	}
+ 
+	private override function updateDisplay():String
+	{
+		return "Characters: " + (!FlxG.save.data.characters ? "off" : "on");
+
+	}
+}
+
+class BGOption extends Option
+{
+	public function new(desc:String)
+	{
+		super();
+		description = desc;
+	}
+
+	public override function press():Bool
+	{
+		FlxG.save.data.bg = !FlxG.save.data.bg;
+		display = updateDisplay();
+		return true;
+	}
+
+	private override function updateDisplay():String
+	{
+		return "Background " + (!FlxG.save.data.bg ? "off" : "on");
+	}
+}
+class EffectsOption extends Option
+{
+	public function new(desc:String)
+	{
+		super();
+		description = desc;
+	}
+
+	public override function press():Bool
+	{
+		FlxG.save.data.effects = !FlxG.save.data.effects;
+		display = updateDisplay();
+		return true;
+	}
+
+	private override function updateDisplay():String
+	{
+		return "Effects " + (!FlxG.save.data.effects ? "off" : "on");
+	}
+}
+class SignOption extends Option
+{
+	public function new(desc:String)
+	{
+		super();
+		description = desc;
+	}
+
+	public override function press():Bool
+	{
+		FlxG.save.data.sign = !FlxG.save.data.sign;
+		display = updateDisplay();
+		return true;
+	}
+
+	private override function updateDisplay():String
+	{
+		return "Stop Signs " + (!FlxG.save.data.sign ? "off" : "on");
+	}
+}
+class GremOption extends Option
+{
+	public function new(desc:String)
+	{
+		super();
+		description = desc;
+	}
+
+	public override function press():Bool
+	{
+		FlxG.save.data.grem = !FlxG.save.data.grem;
+		display = updateDisplay();
+		return true;
+	}
+
+	private override function updateDisplay():String
+	{
+		return "Gremlin " + (!FlxG.save.data.grem ? "off" : "on") + " (only visual)";
+	}
+}
+class BETACSOption extends Option
+{
+	public function new(desc:String)
+	{
+		super();
+		description = desc;
+	}
+
+	public override function press():Bool
+	{
+		FlxG.save.data.betacs = !FlxG.save.data.betacs;
+		display = updateDisplay();
+		return true;
+	}
+
+	private override function updateDisplay():String
+	{
+		return "BETACS mode " + (!FlxG.save.data.betacs ? "off" : "on");
+	}
+}
+
+class SkyOption extends Option
+{
+	public function new(desc:String)
+	{
+		super();
+		description = desc;
+	}
+
+	public override function press():Bool
+	{
+		FlxG.save.data.replacesky = !FlxG.save.data.replacesky;
+		display = updateDisplay();
+		return true;
+	}
+
+	private override function updateDisplay():String
+	{
+		return "Replace the character: " + (!FlxG.save.data.replacesky ? "off" : "on");
+	}
+}
+
+class SundayOption extends Option
+{
+	public function new(desc:String)
+	{
+		super();
+		description = desc;
+	}
+
+	public override function press():Bool
+	{
+		FlxG.save.data.usesunday = !FlxG.save.data.usesunday;
+		display = updateDisplay();
+		return true;
+	}
+
+	private override function updateDisplay():String
+	{
+		return "Sunday instead of Cass: " + (!FlxG.save.data.usesunday ? "off" : "on");
 	}
 }

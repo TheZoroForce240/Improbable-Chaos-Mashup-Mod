@@ -540,7 +540,7 @@ class ChartingState extends MusicBeatState
 			UI_box.x = FlxG.width / 2 + 160;// + 160 * _song.mania;
 			UI_box.y = 100;
 		}
-
+ 
 
 		Conductor.songPosition = FlxG.sound.music.time;
 		_song.song = typingShit.text;

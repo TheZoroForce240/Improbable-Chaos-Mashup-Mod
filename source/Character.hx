@@ -158,21 +158,44 @@ class Character extends FlxSprite
 				playAnim('idle');
 		
 			case 'cass':
-				tex = Paths.getSparrowAtlas('characters/Left/cass');
-				frames = tex;
-				animation.addByPrefix('idle', 'Mom Idle', 24);
-				animation.addByPrefix('singUP', 'Mom Up Pose', 24);
-				animation.addByPrefix('singRIGHT', 'Mom Pose Left', 24);
-				animation.addByPrefix('singDOWN', 'MOM DOWN POSE', 24);
-				animation.addByPrefix('singLEFT', 'Mom Left Pose', 24);
+				if (!FlxG.save.data.usesunday)
+				{
+					tex = Paths.getSparrowAtlas('characters/Left/cass');
+					frames = tex;
+					animation.addByPrefix('idle', 'Mom Idle', 24);
+					animation.addByPrefix('singUP', 'Mom Up Pose', 24);
+					animation.addByPrefix('singRIGHT', 'Mom Pose Left', 24);
+					animation.addByPrefix('singDOWN', 'MOM DOWN POSE', 24);
+					animation.addByPrefix('singLEFT', 'Mom Left Pose', 24);
 
-				addOffset('idle');
-				addOffset("singUP", 24, 61);
-				addOffset("singRIGHT", 30, -53);
-				addOffset("singLEFT", 230, -20);
-				addOffset("singDOWN", 1, -138);
-				
-				playAnim('idle');
+					addOffset('idle');
+					addOffset("singUP", 24, 61);
+					addOffset("singRIGHT", 30, -53);
+					addOffset("singLEFT", 230, -20);
+					addOffset("singDOWN", 1, -138);
+					
+					playAnim('idle');
+				}
+
+				else if (FlxG.save.data.usesunday)
+				{
+					tex = Paths.getSparrowAtlas('characters/Left/sunday_assets');
+					frames = tex;
+					animation.addByPrefix('idle', 'sunday idle', 24, true);
+					animation.addByPrefix('singUP', 'sunday up', 24, false);
+					animation.addByPrefix('singDOWN', 'sunday down', 24, false);
+					animation.addByPrefix('singLEFT', 'sunday left', 24, false);
+					animation.addByPrefix('singRIGHT', 'sunday right', 24, false);
+	
+					addOffset('idle',1,1);
+					addOffset("singDOWN", 157, -27);
+					addOffset("singRIGHT", -71,-10);
+					addOffset("singUP", 137, 147);
+					addOffset("singLEFT", 39,-1);
+					
+					playAnim('idle');
+				}
+					
 			
 			case 'tordbot':
 				tex = Paths.getSparrowAtlas('characters/Left/tordbot_assets');

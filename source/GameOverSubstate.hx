@@ -11,6 +11,13 @@ class GameOverSubstate extends MusicBeatSubstate
 {
 	var bf:Boyfriend;
 	var camFollow:FlxObject;
+	var whitty:Character;
+	var hex:Character;
+	var ruv:Character;
+	var shaggy:Character;
+	var hankchar:Character;
+	var matt:Character;
+	var pico:Character;
 
 	var stageSuffix:String = "";
 
@@ -18,19 +25,63 @@ class GameOverSubstate extends MusicBeatSubstate
 	{
 		var daStage = PlayState.curStage;
 		var daBf:String = 'signDeath';
+		//var dachar:String = 'Death';
 
 		super();
 
 		Conductor.songPosition = 0;
 
 		bf = new Boyfriend(x, y, daBf);
+		//whitty = new Character(x, y, dachar);
+		//hex = new Character(x, y, dachar);
+		//ruv = new Character(x, y, dachar);
+		//shaggy = new Character(x, y, dachar);
+		//hankchar = new Character(x, y, dachar);
+		//matt = new Character(x, y, dachar);
+		//pico = new Character(x, y, dachar);
 		add(bf);
+		/*if (isbf == true)
+		{
+			
+		}
+		else if (iswhitty == true)
+		{
+			add(whitty);
+		}
+		else if (ishex == true)
+		{
+			add(hex);
+		}
+		else if (isruv == true)
+		{
+			add(ruv);
+		}
+		else if (isshaggy == true)
+		{
+			add(shaggy);
+		}
+		else if (ishankchar == true)
+		{
+			add(hankchar);
+		}
+		else if (ismatt == true)
+		{
+			add(matt);
+		}
+		else if (ispico == true)
+		{
+			add(pico);
+		}*/
+
 
 		camFollow = new FlxObject(bf.getGraphicMidpoint().x, bf.getGraphicMidpoint().y, 1, 1);
 		add(camFollow);
 
+		
 		FlxG.sound.play(Paths.sound('BF_Deathsound','clown'));
 		FlxG.sound.play(Paths.sound('Micdrop','clown'));
+
+
 		Conductor.changeBPM(200);
 
 		// FlxG.camera.followLerp = 1;

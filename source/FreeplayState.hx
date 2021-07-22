@@ -112,11 +112,23 @@ class FreeplayState extends MusicBeatState
 		switch (diff)
 		{
 			case 0:
-				return "EASY";
+				return "4K";
 			case 1:
-				return "MEDIUM";
+				return "6K";
 			case 2:
-				return "HARD";
+				return "9K";
+			case 3: 
+				return "4K OLD";
+			case 4: 
+				return "6K OLD";
+			case 5: 
+				return "9K OLD";
+			case 6: 
+				return "4K OLD V1";
+			case 7: 
+				return "6K OLD V1";
+			case 8: 
+				return "9K OLD V1";
 		}
 		return "what";
 	}
@@ -136,8 +148,8 @@ class FreeplayState extends MusicBeatState
 				PlayState.storyDifficulty = 2;
 				diffToUse = 2;
 			}
-			else
-				PlayState.storyDifficulty = diff;
+		else
+			PlayState.storyDifficulty = diff;
 	
 
 		var poop:String = Highscore.formatSong(songs[selectedIndex].pognt.toLowerCase(), diffToUse);
@@ -195,10 +207,10 @@ class FreeplayState extends MusicBeatState
 				diff -= 1;
 			}
 
-			if (diff >= 3)
+			if (diff >= 9)
 				diff = 0;
 			if (diff < 0)
-				diff = 2;
+				diff = 8;
 
 			if (FlxG.keys.justPressed.DOWN)
 				{

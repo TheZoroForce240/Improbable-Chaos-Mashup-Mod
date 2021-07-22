@@ -80,9 +80,35 @@ class KadeEngineData
 		
 		if (FlxG.save.data.regnoteskin == null)
 			FlxG.save.data.regnoteskin = false;
+		
+		if (FlxG.save.data.betacs == null)
+			FlxG.save.data.betacs = false;
+		
+		if (FlxG.save.data.grem == null)
+			FlxG.save.data.grem = true;
 
+		if (FlxG.save.data.bg == null)
+			FlxG.save.data.bg = true;
 
+		if (FlxG.save.data.effects == null)
+			FlxG.save.data.effects = true;
 
+		if (FlxG.save.data.sign == null)
+			FlxG.save.data.sign = true;
+
+		if (FlxG.save.data.characters == null)
+			FlxG.save.data.characters = true;
+
+		if (FlxG.save.data.altnoteskin == null)
+			FlxG.save.data.altnoteskin = false;
+		
+		if (FlxG.save.data.replacesky == null)
+			FlxG.save.data.replacesky = false;
+
+		if (FlxG.save.data.usesunday == null)
+			FlxG.save.data.usesunday = false;
+
+ 
 		Conductor.recalculateTimings();
 
 		KeyBinds.keyCheck();

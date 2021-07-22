@@ -1000,7 +1000,7 @@ class Controls extends FlxActionSet
 
 		loadKeyBinds();
 
-		bindKeys(Control.N0, [A]);
+		/*bindKeys(Control.N0, [A]);
 		bindKeys(Control.N1, [S]);
 		bindKeys(Control.N2, [D]);
 		bindKeys(Control.N3, [F]);
@@ -1106,22 +1106,22 @@ class Controls extends FlxActionSet
 		inline bindKeys(Control.PAUSE, [P, ENTER, ESCAPE]);
 		inline bindKeys(Control.RESET, [FlxKey.fromString(FlxG.save.data.killBind)]);
 
-		bindKeys(Control.N0, [A]);
-		bindKeys(Control.N1, [S]);
-		bindKeys(Control.N2, [D]);
-		bindKeys(Control.N3, [F]);
-		bindKeys(Control.N4, [FlxKey.SPACE]);
-		bindKeys(Control.N5, [H]);
-		bindKeys(Control.N6, [J]);
-		bindKeys(Control.N7, [K]);
-		bindKeys(Control.N8, [L]);
+		inline bindKeys(Control.N0, [FlxKey.fromString(FlxG.save.data.N0Bind)]);
+		inline bindKeys(Control.N1, [FlxKey.fromString(FlxG.save.data.N1Bind)]);
+		inline bindKeys(Control.N2, [FlxKey.fromString(FlxG.save.data.N2Bind)]);
+		inline bindKeys(Control.N3, [FlxKey.fromString(FlxG.save.data.N3Bind)]);
+		inline bindKeys(Control.N4, [FlxKey.fromString(FlxG.save.data.N4Bind)]);
+		inline bindKeys(Control.N5, [FlxKey.fromString(FlxG.save.data.N5Bind)]);
+		inline bindKeys(Control.N6, [FlxKey.fromString(FlxG.save.data.N6Bind)]);
+		inline bindKeys(Control.N7, [FlxKey.fromString(FlxG.save.data.N7Bind)]);
+		inline bindKeys(Control.N8, [FlxKey.fromString(FlxG.save.data.N8Bind)]);
 
-		bindKeys(Control.L1, [S]);
-		bindKeys(Control.U1, [D]);
-		bindKeys(Control.R1, [F]);
-		bindKeys(Control.L2, [J]);
-	 	bindKeys(Control.D1, [K]);
-		bindKeys(Control.R2, [L]);
+		inline bindKeys(Control.L1, [FlxKey.fromString(FlxG.save.data.L1Bind)]);
+		inline bindKeys(Control.U1, [FlxKey.fromString(FlxG.save.data.U1Bind)]);
+		inline bindKeys(Control.R1, [FlxKey.fromString(FlxG.save.data.R1Bind)]);
+		inline bindKeys(Control.L2, [FlxKey.fromString(FlxG.save.data.L2Bind)]);
+		inline bindKeys(Control.D1, [FlxKey.fromString(FlxG.save.data.D1Bind)]);
+		inline bindKeys(Control.R2, [FlxKey.fromString(FlxG.save.data.R2Bind)]);
 	}
 
 	function removeKeyboard()

@@ -68,6 +68,18 @@ class Highscore
 			daSong += '-easy';
 		else if (diff == 2)
 			daSong += '-hard';
+		else if (diff == 3)
+			daSong += '-4kold';
+		else if (diff == 4)
+			daSong += '-6kold';
+		else if (diff == 5)
+			daSong += '-9kold';
+		else if (diff == 6)
+			daSong += '-4koldv1';
+		else if (diff == 7)
+			daSong += '-6koldv1';
+		else if (diff == 8)
+			daSong += '-9koldv1';
 
 		return daSong;
 	}

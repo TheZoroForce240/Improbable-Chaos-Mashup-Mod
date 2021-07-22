@@ -313,6 +313,8 @@ class StoryMenuState extends MusicBeatState
 					diffic = '-easy';
 				case 2:
 					diffic = '-hard';
+				case 3:
+					diffic = '-4kold';
 			}
 
 			PlayState.storyDifficulty = curDifficulty;
