@@ -777,6 +777,14 @@ class PlayState extends MusicBeatState
 		{
 			if (curStage == 'auditorHell')
 				{
+					if (FlxG.save.data.replacesky && FlxG.save.data.usesunday)
+						{
+							add(cass);
+							cass.x += 400;
+							cass.y -= 600;
+							cass.scale.set(0.9, 0.9);
+						}
+						
 					add(zardy);
 					add(tordbot);
 					add(senpaiT);
@@ -855,11 +863,9 @@ class PlayState extends MusicBeatState
 				{
 					add(tabi);
 
-					if (FlxG.save.data.replacesky)
+					if (FlxG.save.data.replacesky && !FlxG.save.data.usesunday)
 						{
 							add(cass);
-							cass.x += 200;
-							cass.y += 150;
 						}
 
 
