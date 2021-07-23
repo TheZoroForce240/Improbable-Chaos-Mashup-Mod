@@ -161,7 +161,7 @@ class TitleState extends MusicBeatState
 		backupMen.y -= 100;
 		backupMen.antialiasing = true;
 
-
+		
 		CachedFrames.loadEverything();
 
 		Highscore.load();

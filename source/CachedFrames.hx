@@ -5,6 +5,7 @@ import haxe.xml.Access;
 import haxe.xml.Fast as Access;
 #end
 import flash.geom.Rectangle;
+import flixel.FlxG;
 import flixel.graphics.FlxGraphic;
 import flixel.graphics.frames.FlxAtlasFrames.TexturePackerObject;
 import flixel.graphics.frames.FlxFrame.FlxFrameAngle;
@@ -103,42 +104,51 @@ class CachedFrames
 
     public function loadFrames()
     {
-        sys.thread.Thread.create(() -> {
-            toBeLoaded.set('sign','fourth/mech/Sign_Post_Mechanic');
-            //toBeLoaded.set('left','hellclwn/Tricky/Left');
-            //toBeLoaded.set('right','hellclwn/Tricky/right');
-            //toBeLoaded.set('up','hellclwn/Tricky/Up');
-            //toBeLoaded.set('down','hellclwn/Tricky/Down');
-            //toBeLoaded.set('idle','hellclwn/Tricky/Idle');
-            toBeLoaded.set('grem','fourth/mech/HP GREMLIN');
-            toBeLoaded.set('cln','fourth/Clone');
-            toBeLoaded.set('scoob','fourth/bonus/scoob');
-            toBeLoaded.set('scoobgrem','fourth/bonus/scoobGREMLIN');
-            /*toBeLoaded.set('tabi','characters/Left/MadTabi');
-            toBeLoaded.set('agoti','characters/Left/Alt_Agoti_Sprites_B');
-            toBeLoaded.set('sky','characters/Left/sky_mad_assets');
-            toBeLoaded.set('tordbot','characters/Left/tordbot_assets');
-            toBeLoaded.set('zardy','characters/Left/Zardy');
-            toBeLoaded.set('bob','characters/Left/hellbob_assets');
-            toBeLoaded.set('senpai','characters/Left/Senpai_Spirit');
-            toBeLoaded.set('whitty','characters/Right/WhittyCrazy');
-            toBeLoaded.set('matt','characters/Right/matt_assets');
-            toBeLoaded.set('pico','characters/Right/Pico_FNF_assetss');
-            toBeLoaded.set('hankchar','characters/Right/TrickyMask');
-            toBeLoaded.set('garcello','characters/Right/garcellodead_assets');
-            toBeLoaded.set('shaggy','characters/Right/pshaggy');
-            toBeLoaded.set('ruv','characters/Right/ruv_sheet');
-            toBeLoaded.set('hex','characters/Right/Hex_Virus');*/
-            // all the big sprites
-            var numba = 0;
-            for(i in toBeLoaded.keys())
+        if (FlxG.save.data.preload)
+        {
+            sys.thread.Thread.create(() -> {
+                toBeLoaded.set('sign','fourth/mech/Sign_Post_Mechanic');
+                //toBeLoaded.set('left','hellclwn/Tricky/Left');
+                //toBeLoaded.set('right','hellclwn/Tricky/right');
+                //toBeLoaded.set('up','hellclwn/Tricky/Up');
+                //toBeLoaded.set('down','hellclwn/Tricky/Down');
+                //toBeLoaded.set('idle','hellclwn/Tricky/Idle');
+                toBeLoaded.set('grem','fourth/mech/HP GREMLIN');
+                toBeLoaded.set('cln','fourth/Clone');
+                toBeLoaded.set('scoob','fourth/bonus/scoob');
+                toBeLoaded.set('scoobgrem','fourth/bonus/scoobGREMLIN');
+                /*toBeLoaded.set('tabi','characters/Left/MadTabi');
+                toBeLoaded.set('agoti','characters/Left/Alt_Agoti_Sprites_B');
+                toBeLoaded.set('sky','characters/Left/sky_mad_assets');
+                toBeLoaded.set('tordbot','characters/Left/tordbot_assets');
+                toBeLoaded.set('zardy','characters/Left/Zardy');
+                toBeLoaded.set('bob','characters/Left/hellbob_assets');
+                toBeLoaded.set('senpai','characters/Left/Senpai_Spirit');
+                toBeLoaded.set('whitty','characters/Right/WhittyCrazy');
+                toBeLoaded.set('matt','characters/Right/matt_assets');
+                toBeLoaded.set('pico','characters/Right/Pico_FNF_assetss');
+                toBeLoaded.set('hankchar','characters/Right/TrickyMask');
+                toBeLoaded.set('garcello','characters/Right/garcellodead_assets');
+                toBeLoaded.set('shaggy','characters/Right/pshaggy');
+                toBeLoaded.set('ruv','characters/Right/ruv_sheet');
+                toBeLoaded.set('hex','characters/Right/Hex_Virus');*/
+               
+                // all the big sprites
+                var numba = 0;
+                for(i in toBeLoaded.keys())
+                {
+                    load(i,toBeLoaded.get(i));
+                    numba++;
+                    progress = HelperFunctions.truncateFloat(numba / Lambda.count(toBeLoaded) * 100,2);
+                }
+                trace('loaded everythin');
+                loaded = true;
+            });
+        }
+        else if (!FlxG.save.data.preload)
             {
-                load(i,toBeLoaded.get(i));
-                numba++;
-                progress = HelperFunctions.truncateFloat(numba / Lambda.count(toBeLoaded) * 100,2);
+                loaded = true;
             }
-            trace('loaded everythin');
-            loaded = true;
-        });
+       
     }
 }

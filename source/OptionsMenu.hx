@@ -49,10 +49,13 @@ class OptionsMenu extends MusicBeatState
 		]),
 		new OptionCatagory("Optimization", [
 			new CharacterOption("Toggle Characters"),
+			new BGCharacterOption("Toggle Characters"),
 			new BGOption("Toggle Background"),
 			new EffectsOption("Toggle Effects(jumpscare, shake and stuff)"),
 			new SignOption("Toggle stop signs"),
-			new GremOption("Toggle gremlin")
+			new GremOption("Toggle gremlin"),
+			new AAOption("Toggle gremlin"),
+			new PreloadOption("Toggle gremlin")
 		])	
 	];
 
@@ -90,9 +93,9 @@ class OptionsMenu extends MusicBeatState
 		{
 			var option:OptionCatagory = options[i];
 
-			var text:FlxText = new FlxText(125,(95 * i) + 100, 0, option.getName(),34);
+			var text:FlxText = new FlxText(125,(65 * i) + 100, 0, option.getName(),34);
 			text.color = FlxColor.fromRGB(255,0,0);
-			text.setFormat("tahoma-bold.ttf", 60, FlxColor.RED);
+			text.setFormat("tahoma-bold.ttf", 40, FlxColor.RED);
 			add(text);
 			currentOptions.push(text);
 
@@ -156,9 +159,9 @@ class OptionsMenu extends MusicBeatState
 						// redo shit
 						var option:OptionCatagory = options[i];
 					
-						var text:FlxText = new FlxText(125,(95 * i) + 100, 0, option.getName(),34);
+						var text:FlxText = new FlxText(125,(65 * i) + 100, 0, option.getName(),34);
 						text.color = FlxColor.fromRGB(255,0,0);
-						text.setFormat("tahoma-bold.ttf", 60, FlxColor.RED);
+						text.setFormat("tahoma-bold.ttf", 40, FlxColor.RED);
 						add(text);
 						currentOptions.push(text);
 					}
@@ -261,9 +264,9 @@ class OptionsMenu extends MusicBeatState
 
 								trace(option.getDisplay());
 
-								var text:FlxText = new FlxText(125,(95 * i) + 100, 0, option.getDisplay(),34);
+								var text:FlxText = new FlxText(125,(65 * i) + 100, 0, option.getDisplay(),34);
 								text.color = FlxColor.fromRGB(255,0,0);
-								text.setFormat("tahoma-bold.ttf", 60, FlxColor.RED);
+								text.setFormat("tahoma-bold.ttf", 40, FlxColor.RED);
 								add(text);
 								currentOptions.push(text);
 							}
@@ -287,9 +290,9 @@ class OptionsMenu extends MusicBeatState
 
 							trace(option.getDisplay());
 
-							var text:FlxText = new FlxText(125,(95 * i) + 100, 0, option.getDisplay(),34);
+							var text:FlxText = new FlxText(125,(65 * i) + 100, 0, option.getDisplay(),34);
 							text.color = FlxColor.fromRGB(255,0,0);
-							text.setFormat("tahoma-bold.ttf", 60, FlxColor.RED);
+							text.setFormat("tahoma-bold.ttf", 40, FlxColor.RED);
 							add(text);
 							currentOptions.push(text);
 						}

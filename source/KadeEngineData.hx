@@ -108,6 +108,15 @@ class KadeEngineData
 		if (FlxG.save.data.usesunday == null)
 			FlxG.save.data.usesunday = false;
 
+		if (FlxG.save.data.aa == null)
+			FlxG.save.data.aa = true;
+
+		if (FlxG.save.data.preload == null)
+			FlxG.save.data.preload = true;
+
+		if (FlxG.save.data.bgcharacters == null)
+			FlxG.save.data.bgcharacters = true;
+
  
 		Conductor.recalculateTimings();
 

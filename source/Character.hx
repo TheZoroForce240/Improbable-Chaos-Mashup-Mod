@@ -35,7 +35,10 @@ class Character extends FlxSprite
 		this.isPlayer = isPlayer;
 
 		var tex:FlxAtlasFrames;
-		antialiasing = true;
+		if (FlxG.save.data.aa)
+			antialiasing = true;
+		else if (!FlxG.save.data.aa)
+			antialiasing = false;
 
 		switch (curCharacter)
 		{
@@ -697,7 +700,10 @@ class Character extends FlxSprite
 				playAnim('idle');
 		}
 
-		antialiasing = true;
+		if (FlxG.save.data.aa)
+			antialiasing = true;
+		else if (!FlxG.save.data.aa)
+			antialiasing = false;
 
 		dance();
 

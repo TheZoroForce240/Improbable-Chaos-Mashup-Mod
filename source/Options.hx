@@ -427,6 +427,29 @@ class CharacterOption extends Option
 
 	}
 }
+class BGCharacterOption extends Option
+{
+	public function new(desc:String)
+	{
+		super();
+		description = desc;
+	}
+
+	public override function press():Bool
+	{
+		FlxG.save.data.bgcharacters = !FlxG.save.data.bgcharacters;
+		//if (FlxG.save.data.characters > 2)
+			//FlxG.save.data.characters = 0;
+		display = updateDisplay();
+		return true;
+	}
+ 
+	private override function updateDisplay():String
+	{
+		return "Background Characters: " + (!FlxG.save.data.bgcharacters ? "off" : "on");
+
+	}
+}
 
 class BGOption extends Option
 {
@@ -546,7 +569,7 @@ class SkyOption extends Option
 
 	private override function updateDisplay():String
 	{
-		return "Replace the character: " + (!FlxG.save.data.replacesky ? "off" : "on");
+		return "Replacement Character: " + (!FlxG.save.data.replacesky ? "off" : "on");
 	}
 }
 
@@ -567,6 +590,47 @@ class SundayOption extends Option
 
 	private override function updateDisplay():String
 	{
-		return "Sunday instead of Cass: " + (!FlxG.save.data.usesunday ? "off" : "on");
+		return "Sunday instead of Cassandra: " + (!FlxG.save.data.usesunday ? "off" : "on");
+	}
+}
+
+class AAOption extends Option
+{
+	public function new(desc:String)
+	{
+		super();
+		description = desc;
+	}
+
+	public override function press():Bool
+	{
+		FlxG.save.data.aa = !FlxG.save.data.aa;
+		display = updateDisplay();
+		return true;
+	}
+
+	private override function updateDisplay():String
+	{
+		return "Anti-aliasing: " + (!FlxG.save.data.aa ? "off" : "on");
+	}
+}
+class PreloadOption extends Option
+{
+	public function new(desc:String)
+	{
+		super();
+		description = desc;
+	}
+
+	public override function press():Bool
+	{
+		FlxG.save.data.preload = !FlxG.save.data.preload;
+		display = updateDisplay();
+		return true;
+	}
+
+	private override function updateDisplay():String
+	{
+		return "Preload: " + (!FlxG.save.data.preload ? "off (turns off grem and sign, restart recommended)" : "on");
 	}
 }

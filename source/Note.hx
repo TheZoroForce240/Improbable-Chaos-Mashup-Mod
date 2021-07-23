@@ -81,6 +81,11 @@ class Note extends FlxSprite
 		// MAKE SURE ITS DEFINITELY OFF SCREEN?
 		y -= 2000;
 		strumTime = _strumTime + FlxG.save.data.offset;
+		if (FlxG.save.data.downscroll && noteType == 1 || FlxG.save.data.downscroll && noteType == 2)
+			strumTime += 50;
+		else if (!FlxG.save.data.downscroll && noteType == 1 || !FlxG.save.data.downscroll && noteType == 2)
+			strumTime -= 50;
+
 		strumTime = strumTime < 0 ? 0 : strumTime;
 
 		burning = _noteData > 8;
@@ -273,6 +278,8 @@ class Note extends FlxSprite
 					animation.addByPrefix('blackScroll', 'Blue Arrow');
 					animation.addByPrefix('darkScroll', 'Purple Arrow');
 					setGraphicSize(Std.int(width * noteScale));
+					y -= 1000; //doesnt work for some fucking reason
+					updateHitbox();
 					if (PlayState.SONG.mania == 1)
 						{
 							x -= 145;
@@ -283,6 +290,8 @@ class Note extends FlxSprite
 						}
 					else
 						x -= 170;
+
+					
 						
 				}
 				if(noteType == 2){
@@ -299,6 +308,8 @@ class Note extends FlxSprite
 					animation.addByPrefix('blackScroll', 'Blue Arrow');
 					animation.addByPrefix('darkScroll', 'Purple Arrow');
 					setGraphicSize(Std.int(width * noteScale));
+					y -= 1000;
+					updateHitbox();
 					if (PlayState.SONG.mania == 1)
 						{
 							x -= 145;
@@ -309,6 +320,8 @@ class Note extends FlxSprite
 						};
 					else
 						x -= 170;
+
+					
 
 				}
 				if(noteType == 4)
@@ -349,10 +362,12 @@ class Note extends FlxSprite
 		if (noteType == 1)
 			{
 				setGraphicSize(Std.int(width * 0.86));
+				//updateHitbox();
 			}
 		if (noteType == 2)
 			{
 				setGraphicSize(Std.int(width * 0.86));
+				//updateHitbox();
 			}
 			
 
