@@ -40,6 +40,7 @@ class ChartingState extends MusicBeatState
 {
 	var _file:FileReference;
 	public var playClaps:Bool = false;
+	public static var isCharting:Bool = false;
 
 	var UI_box:FlxUITabMenu;
 
@@ -67,6 +68,7 @@ class ChartingState extends MusicBeatState
 
 	var curRenderedNotes:FlxTypedGroup<Note>;
 	var curRenderedSustains:FlxTypedGroup<FlxSprite>;
+	var curRenderedTypes:FlxTypedGroup<FlxSprite>;
 
 	var gridBG:FlxSprite;
 	var gridBlackLine:FlxSprite;
@@ -114,6 +116,7 @@ class ChartingState extends MusicBeatState
 
 		curRenderedNotes = new FlxTypedGroup<Note>();
 		curRenderedSustains = new FlxTypedGroup<FlxSprite>();
+		curRenderedTypes = new FlxTypedGroup<FlxSprite>();
 
 		if (PlayState.SONG != null)
 			_song = PlayState.SONG;
@@ -176,6 +179,7 @@ class ChartingState extends MusicBeatState
 
 		add(curRenderedNotes);
 		add(curRenderedSustains);
+		add(curRenderedTypes);
 
 		super.create();
 	}
@@ -917,6 +921,11 @@ class ChartingState extends MusicBeatState
 			curRenderedSustains.remove(curRenderedSustains.members[0], true);
 		}
 
+		while (curRenderedTypes.members.length > 0)
+			{
+				curRenderedTypes.remove(curRenderedTypes.members[0], true);
+			}
+
 		var sectionInfo:Array<Dynamic> = _song.notes[curSection].sectionNotes;
 
 		if (_song.notes[curSection].changeBPM && _song.notes[curSection].bpm > 0)
@@ -954,11 +963,19 @@ class ChartingState extends MusicBeatState
 			var daStrumTime = i[0];
 			var daSus = i[2];
 			var daType = i[3];
-			var note:Note = new Note(daStrumTime, daNoteInfo % (keyAmmo[_song.mania]), daType);
+			var note:Note = new Note(daStrumTime, daNoteInfo % (keyAmmo[_song.mania]));
 			note.sustainLength = daSus;
+			note.noteType = daType;
 			note.setGraphicSize(GRID_SIZE, GRID_SIZE);
 			note.updateHitbox();
-			note.updateHitbox();note.burning = daNoteInfo > 7;
+				
+			note.updateHitbox();note.halo = (note.noteType == 1);
+			note.updateHitbox();note.angel = (note.noteType == 2);
+			note.updateHitbox();note.warning = (note.noteType == 4);
+
+			//note.updateHitbox();note.burning = daNoteInfo > 7;
+				
+			
 			note.x = Math.floor(daNoteInfo * GRID_SIZE);
 			note.y = Math.floor(getYfromStrum((daStrumTime - sectionStartTime()) % (Conductor.stepCrochet * _song.notes[curSection].lengthInSteps)));
 
@@ -967,6 +984,14 @@ class ChartingState extends MusicBeatState
 				note.setGraphicSize(S_GRID_SIZE, GRID_SIZE);
 				note.x = Math.floor(daNoteInfo * S_GRID_SIZE);
 			}
+
+			if (daType != 0)
+				{
+					var thetext:String = Std.string(daType);
+					var typeText:FlxText = new FlxText(note.x, note.y, 0, thetext, 25, true);
+					typeText.color = FlxColor.fromRGB(255,0,0);
+					curRenderedTypes.add(typeText);
+				}
 
 			curRenderedNotes.add(note);
 
@@ -1056,6 +1081,10 @@ class ChartingState extends MusicBeatState
 			noteType = 2;
 		if (FlxG.keys.pressed.X)
 			noteType = 4;
+		if (FlxG.keys.pressed.C)
+			noteType = 5;
+		if (FlxG.keys.pressed.V)
+			noteType = 6;
 
 
 		if (_song.mania == 2)
@@ -1124,13 +1153,16 @@ class ChartingState extends MusicBeatState
 	function getNotes():Array<Dynamic>
 	{
 		var noteData:Array<Dynamic> = [];
+		//var noteType:Array<Dynamic> = [];
 
 		for (i in _song.notes)
 		{
 			noteData.push(i.sectionNotes);
+			//noteType.push(i.sectionNotes);
 		}
 
 		return noteData;
+	//	return noteType;
 	}
 
 	function loadJson(song:String):Void

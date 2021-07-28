@@ -66,7 +66,7 @@ class FreeplayState extends MusicBeatState
 		bars.setGraphicSize(Std.int(bars.width * 0.65));
 		add(bars);
 
-		if (FlxG.save.data.beatenHardIC || debug)
+		if (FlxG.save.data.beatenHardIC || debug || !FlxG.save.data.beatenHardIC)
 			songs.push(songFour);
 		else
 		{

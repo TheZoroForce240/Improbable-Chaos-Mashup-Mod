@@ -33,27 +33,23 @@ class MainMenuState extends MusicBeatState
 
 	public var listOfButtons:Array<TrickyButton> = 
 	[
-		new TrickyButton(200, 160, 'menu/Clown Mode Button CONFIRM', 'menu/Clown Mode Button', playIC,' Chaos', 0, -40), //accidentally did wrong one when i edited it so
-		new TrickyButton(500, 165, 'menu/FreePlayButton', 'menu/FreePlayButton CONFIRM', goToFreeplay, "free", 0, -40),
-		new TrickyButton(800, 160, 'menu/Clown Mode Button CONFIRM', 'menu/Clown Mode Button Locked', playAC,' Chaos', 0, -40),
-		new TrickyButton(435, 330, 'menu/DIFFICULTY', 'menu/DIFFICULTY CONFIRM', startDiffSelect),
-		new TrickyButton(775, 460, 'menu/OPTIONS Button', 'menu/OPTIONS Button CONFIRM', goToOptions, "options", 0, 45),
-		new TrickyButton(975, 460, 'menu/CREDITS Button', 'menu/CREDITS Button CONFIRM', goToCredits, "credits", 0, 45)
+		new TrickyButton(800, 160, 'menu/Clown Mode Button', 'menu/Clown Mode Button CONFIRM', playStory,' Chaos', 0, -40),
+		new TrickyButton(1010, 165, 'menu/FreePlayButton', 'menu/FreePlayButton CONFIRM', goToFreeplay, "free", 0, -40),
+		new TrickyButton(925, 265, 'menu/MUSIC Button', 'menu/MUSIC button confirm', goToMusic),
+		new TrickyButton(685, 330, 'menu/DIFFICULTY', 'menu/DIFFICULTY CONFIRM', startDiffSelect),
+		new TrickyButton(975, 460, 'menu/OPTIONS Button', 'menu/OPTIONS Button CONFIRM', goToOptions, "options", 0, 45)
 	];
 
 	public var listOfDiffButtons:Array<TrickyButton> = 
 	[
-		new TrickyButton(385,415,'menu/EASY button', 'menu/EASY button confirm', setDiff, 'easy'),
-		new TrickyButton(537,415,'menu/MEDIUM button', 'menu/MEDIUM Button confirm', setDiff),
-		new TrickyButton(765,415,'menu/HARD Button', 'menu/HARD button confirm', setDiff, 'hard')
+		new TrickyButton(635,415,'menu/EASY button', 'menu/EASY button confirm', setDiff, 'easy'),
+		new TrickyButton(787,415,'menu/MEDIUM button', 'menu/MEDIUM Button confirm', setDiff),
+		new TrickyButton(1015,415,'menu/HARD Button', 'menu/HARD button confirm', setDiff, 'hard')
 	];
 
 	var listOfDiff:Array<String> = ['easy','medium','hard'];
 
 	var tinyMan:FlxSprite;
-
-	var icbg:FlxSprite;
-	var acbg:FlxSprite;
 
 	override function create()
 	{
@@ -76,13 +72,11 @@ class MainMenuState extends MusicBeatState
 
 		trans.setGraphicSize(Std.int(trans.width * 1.38));
 
-		icbg = new FlxSprite(-455,-327).loadGraphic(Paths.image('menu/ICBG','clown'));
-		add(icbg);
-		acbg = new FlxSprite(-455,-327).loadGraphic(Paths.image('menu/ACBG','clown'));
-		add(acbg);
+		var bg:FlxSprite = new FlxSprite(-10,-10).loadGraphic(Paths.image('menu/RedBG','clown'));
+		add(bg);
 		var hedgeBG:FlxSprite = new FlxSprite(-750,110).loadGraphic(Paths.image('menu/HedgeBG','clown'));
 		hedgeBG.setGraphicSize(Std.int(hedgeBG.width * 0.65));
-		//add(hedgeBG);
+		add(hedgeBG);
 		var foreground:FlxSprite = new FlxSprite(-750,110).loadGraphic(Paths.image('menu/Transforeground','clown'));
 		foreground.setGraphicSize(Std.int(foreground.width * 0.65));
 		add(foreground);
@@ -91,7 +85,7 @@ class MainMenuState extends MusicBeatState
 		slider.x = -20;
 		slider.y = 209;
 		slider.setGraphicSize(Std.int(slider.width * 0.65));
-		//add(slider);
+		add(slider);
 
 		// figure out who the fuck do I show lol
 		// also THIS IS BAD
@@ -117,6 +111,8 @@ class MainMenuState extends MusicBeatState
 				show = 'auditor';
 			if (random >= 7000 && random <= 7999)
 				show = 'mag';
+			if (random > 9800)
+				show = 'sus';
 			killed = false;
 			lastRoll = show;
 			trace('random ' + random + ' im showin ' + show);
@@ -246,6 +242,12 @@ class MainMenuState extends MusicBeatState
 			FlxG.sound.music.fadeIn(4, 0, 0.7);
 			reRoll = false;
 		}
+
+		if (show == 'sus' && killed)
+		{
+			shower.offset.set(5,10);
+			shower.animation.play('deathPost');
+		}
 		else
 			shower.animation.play('idle');
 
@@ -260,7 +262,7 @@ class MainMenuState extends MusicBeatState
 			}
 
 
-		//add(shower);
+		add(shower);
 			
 
 		var bgCover:FlxSprite = new FlxSprite(-455,-327).loadGraphic(Paths.image('menu/BGCover','clown'));
@@ -273,7 +275,7 @@ class MainMenuState extends MusicBeatState
 		hedgeCover.antialiasing = true;
 		add(hedgeCover);
 
-		var liners:FlxSprite = new FlxSprite(350, 390).loadGraphic(Paths.image("menu/Liners","clown"));
+		var liners:FlxSprite = new FlxSprite(600, 390).loadGraphic(Paths.image("menu/Liners","clown"));
 		liners.setGraphicSize(Std.int(liners.width * 0.7));
 		liners.antialiasing = true;
 		add(liners);
@@ -296,11 +298,11 @@ class MainMenuState extends MusicBeatState
 
 
 
-		var logo:FlxSprite = new FlxSprite(140,-45).loadGraphic(Paths.image("menu/Mainlogo","clown"));
+		var logo:FlxSprite = new FlxSprite(-50,-15).loadGraphic(Paths.image("menu/Mainlogo","clown"));
 		logo.antialiasing = true;
 		add(logo);
 
-		/*if (FlxG.save.data.beatenIC)
+		if (FlxG.save.data.beatenIC)
 		{
 			var troph:FlxSprite = new FlxSprite(875, 60).loadGraphic(Paths.image("menu/Silver_Trophy","clown"));
 			if (FlxG.save.data.beatenHardIC)
@@ -326,7 +328,7 @@ class MainMenuState extends MusicBeatState
 
 					tinyMan.antialiasing = true;
 
-					//add(tinyMan);
+					add(tinyMan);
 				}
 			}
 
@@ -335,7 +337,7 @@ class MainMenuState extends MusicBeatState
 
 
 			add(troph);
-		}*/
+		}
 
 		if (show == 'sus')
 			add(hand);
@@ -406,25 +408,13 @@ class MainMenuState extends MusicBeatState
 		FlxG.switchState(new OptionsMenu());
 	}
 
-	public static function goToCredits()
-		{
-			FlxG.mouse.visible = false;
-			FlxG.switchState(new CreditsMenu());
-		}
-
-
 	public static function startDiffSelect()
 	{
 		selectingDiff = true;
 		instance.listOfButtons[selectedIndex].unHighlight();
 	}
 
-	public static function playAC()
-		{
-			FlxG.switchState(new MainMenuState());
-		}
-
-	public static function playIC()
+	public static function playStory()
 	{
 		FlxG.mouse.visible = false;
 		PlayState.storyPlaylist = ['Improbable Chaos'];
@@ -540,15 +530,6 @@ class MainMenuState extends MusicBeatState
 	{
 		super.update(elapsed);
 
-		if (selectedIndex != 0)
-			FlxTween.tween(icbg, {alpha: 0.3}, 0.2);
-		else if (selectedIndex == 0)
-			FlxTween.tween(icbg, {alpha: 1}, 0.2);
-		if (selectedIndex != 2)
-			FlxTween.tween(acbg, {alpha: 0.04}, 0.2);
-		else if (selectedIndex == 2)
-			FlxTween.tween(acbg, {alpha: 0.04}, 0.2);
-
 		if (MusicMenu.Vocals != null)
 		{
 			if (MusicMenu.Vocals.playing)
@@ -613,7 +594,6 @@ class MainMenuState extends MusicBeatState
 			{
 				if (show == 'sus' && !killed && hand.alpha == 1)
 					FlxTween.tween(hand, {alpha: 0, x: shower.x + 60, y: shower.y + 60}, 0.6, {ease: FlxEase.expoInOut});
-				
 				if (selectedIndex + 1 < listOfButtons.length)
 				{
 					listOfButtons[selectedIndex].unHighlight();

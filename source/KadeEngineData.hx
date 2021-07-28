@@ -117,6 +117,14 @@ class KadeEngineData
 		if (FlxG.save.data.bgcharacters == null)
 			FlxG.save.data.bgcharacters = true;
 
+		if (FlxG.save.data.regbf == null)
+			FlxG.save.data.regbf = false;
+
+		if (FlxG.save.data.orange == null)
+			FlxG.save.data.orange = false;
+
+		if (FlxG.save.data.newhalo == null)
+			FlxG.save.data.newhalo = true;
  
 		Conductor.recalculateTimings();
 

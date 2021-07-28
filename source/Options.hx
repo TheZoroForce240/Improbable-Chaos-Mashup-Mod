@@ -91,7 +91,7 @@ class DFJKOption extends Option
 
 	private override function updateDisplay():String
 	{
-		return "Key Bindings";
+		return "Key Bindings (press backspace inside the menu to reset)";
 	}
 }
 
@@ -632,5 +632,67 @@ class PreloadOption extends Option
 	private override function updateDisplay():String
 	{
 		return "Preload: " + (!FlxG.save.data.preload ? "off (turns off grem and sign, restart recommended)" : "on");
+	}
+}
+
+class RegbfOption extends Option
+{
+	public function new(desc:String)
+	{
+		super();
+		description = desc;
+	}
+
+	public override function press():Bool
+	{
+		FlxG.save.data.regbf = !FlxG.save.data.regbf;
+		display = updateDisplay();
+		return true;
+	}
+
+	private override function updateDisplay():String
+	{
+		return "Use Regular Bf Skin: " + (!FlxG.save.data.regbf ? "off" : "on");
+	}
+}
+
+class OrangeOption extends Option
+{
+	public function new(desc:String)
+	{
+		super();
+		description = desc;
+	}
+
+	public override function press():Bool
+	{
+		FlxG.save.data.orange = !FlxG.save.data.orange;
+		display = updateDisplay();
+		return true;
+	}
+
+	private override function updateDisplay():String
+	{
+		return "Use Orange notes: " + (!FlxG.save.data.orange ? "off" : "on") + "(Only for HEAVYSTYLES note skin)";
+	}
+}
+class NewHaloOption extends Option
+{
+	public function new(desc:String)
+	{
+		super();
+		description = desc;
+	}
+
+	public override function press():Bool
+	{
+		FlxG.save.data.newhalo = !FlxG.save.data.newhalo;
+		display = updateDisplay();
+		return true;
+	}
+
+	private override function updateDisplay():String
+	{
+		return "Use New Halo notes: " + (!FlxG.save.data.newhalo ? "off" : "on") + "(Easier to see)";
 	}
 }

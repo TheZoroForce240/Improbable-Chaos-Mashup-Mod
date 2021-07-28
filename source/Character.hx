@@ -274,6 +274,9 @@ class Character extends FlxSprite
 				animation.addByPrefix('singRIGHT', 'whitty sing note right', 24);
 				animation.addByPrefix('singDOWN', 'Whitty Sing Note DOWN', 24);
 				animation.addByPrefix('singLEFT', 'Whitty Sing Note LEFT', 24);
+				animation.addByPrefix('firstDeath', "Whitty Dies", 24, false);
+				animation.addByPrefix('deathLoop', "Whitty Dead Loop", 24, true);
+				animation.addByPrefix('deathConfirm', "Whitty Retry", 24, false);
 
 				addOffset('idle');
 				addOffset("singUP", -6, 50);
@@ -285,13 +288,16 @@ class Character extends FlxSprite
 
 				flipX = true;
 			case 'matt':
-				tex = Paths.getSparrowAtlas('characters/Right/matt_assets');
+				tex = Paths.getSparrowAtlas('characters/Right/matt');
 				frames = tex;
 				animation.addByPrefix('idle', 'matt idle', 24);
 				animation.addByPrefix('singUP', 'matt up note', 24);
 				animation.addByPrefix('singRIGHT', 'matt right note', 24);
 				animation.addByPrefix('singDOWN', 'matt down note', 24);
 				animation.addByPrefix('singLEFT', 'matt left note', 24);
+				animation.addByPrefix('firstDeath', "matt dies", 24, false);
+				animation.addByPrefix('deathLoop', "Matt dead loop", 24, true);
+				animation.addByPrefix('deathConfirm', "Matt Retry", 24, false);
 
 				addOffset('idle');
 				addOffset("singUP", -46, 10);
@@ -557,46 +563,96 @@ class Character extends FlxSprite
 				playAnim('idle');
 			
 			case 'bf':
-				var tex = Paths.getSparrowAtlas('characters/Right/BF_post_exp');
-				frames = tex;
-				animation.addByPrefix('idle', 'BF idle dance', 24, false);
-				animation.addByPrefix('singUP', 'BF NOTE UP0', 24, false);
-				animation.addByPrefix('singLEFT', 'BF NOTE LEFT0', 24, false);
-				animation.addByPrefix('singRIGHT', 'BF NOTE RIGHT0', 24, false);
-				animation.addByPrefix('singDOWN', 'BF NOTE DOWN0', 24, false);
-				animation.addByPrefix('singUPmiss', 'BF NOTE UP MISS', 24, false);
-				animation.addByPrefix('singLEFTmiss', 'BF NOTE LEFT MISS', 24, false);
-				animation.addByPrefix('singRIGHTmiss', 'BF NOTE RIGHT MISS', 24, false);
-				animation.addByPrefix('singDOWNmiss', 'BF NOTE DOWN MISS', 24, false);
-				animation.addByPrefix('hey', 'BF HEY', 24, false);
+				if (!FlxG.save.data.regbf)
+				{
+					var tex = Paths.getSparrowAtlas('characters/Right/BF_post_exp');
+					frames = tex;
+					animation.addByPrefix('idle', 'BF idle dance', 24, false);
+					animation.addByPrefix('singUP', 'BF NOTE UP0', 24, false);
+					animation.addByPrefix('singLEFT', 'BF NOTE LEFT0', 24, false);
+					animation.addByPrefix('singRIGHT', 'BF NOTE RIGHT0', 24, false);
+					animation.addByPrefix('singDOWN', 'BF NOTE DOWN0', 24, false);
+					animation.addByPrefix('singUPmiss', 'BF NOTE UP MISS', 24, false);
+					animation.addByPrefix('singLEFTmiss', 'BF NOTE LEFT MISS', 24, false);
+					animation.addByPrefix('singRIGHTmiss', 'BF NOTE RIGHT MISS', 24, false);
+					animation.addByPrefix('singDOWNmiss', 'BF NOTE DOWN MISS', 24, false);
+					animation.addByPrefix('hey', 'BF HEY', 24, false);
 
-				animation.addByPrefix('firstDeath', "BF dies", 24, false);
-				animation.addByPrefix('deathLoop', "BF Dead Loop", 24, true);
-				animation.addByPrefix('deathConfirm', "BF Dead confirm", 24, false);
+					animation.addByPrefix('firstDeath', "BF dies", 24, false);
+					animation.addByPrefix('deathLoop', "BF Dead Loop", 24, true);
+					animation.addByPrefix('deathConfirm', "BF Dead confirm", 24, false);
 
-				animation.addByPrefix('scared', 'BF idle shaking', 24);
+					animation.addByPrefix('scared', 'BF idle shaking', 24);
 
-				animation.addByPrefix('stunned', 'BF hit', 24, false);
+					animation.addByPrefix('stunned', 'BF hit', 24, false);
 
-				addOffset('idle', -5);
-				addOffset("singUP", -29, 27);
-				addOffset("singRIGHT", -38, -7);
-				addOffset("singLEFT", 12, -6);
-				addOffset("singDOWN", -10, -50);
-				addOffset("singUPmiss", -29, 27);
-				addOffset("singRIGHTmiss", -30, 21);
-				addOffset("singLEFTmiss", 12, 24);
-				addOffset("singDOWNmiss", -11, -19);
-				addOffset("hey", 7, 4);
-				addOffset('firstDeath', 37, 11);
-				addOffset('deathLoop', 37, 5);
-				addOffset('deathConfirm', 37, 69);
-				addOffset('scared', -4);
-				addOffset('stunned', 31, 22);
+					addOffset('idle', -5);
+					addOffset("singUP", -29, 27);
+					addOffset("singRIGHT", -38, -7);
+					addOffset("singLEFT", 12, -6);
+					addOffset("singDOWN", -10, -50);
+					addOffset("singUPmiss", -29, 27);
+					addOffset("singRIGHTmiss", -30, 21);
+					addOffset("singLEFTmiss", 12, 24);
+					addOffset("singDOWNmiss", -11, -19);
+					addOffset("hey", 7, 4);
+					addOffset('firstDeath', 37, 11);
+					addOffset('deathLoop', 37, 5);
+					addOffset('deathConfirm', 37, 69);
+					addOffset('scared', -4);
+					addOffset('stunned', 31, 22);
 
-				playAnim('idle');
+					playAnim('idle');
 
-				flipX = true;
+					flipX = true;
+				}
+				else 
+				{
+					var tex = Paths.getSparrowAtlas('BOYFRIEND');
+					frames = tex;
+					animation.addByPrefix('idle', 'BF idle dance', 24, false);
+					animation.addByPrefix('singUP', 'BF NOTE UP0', 24, false);
+					animation.addByPrefix('singLEFT', 'BF NOTE LEFT0', 24, false);
+					animation.addByPrefix('singRIGHT', 'BF NOTE RIGHT0', 24, false);
+					animation.addByPrefix('singDOWN', 'BF NOTE DOWN0', 24, false);
+					animation.addByPrefix('singUPmiss', 'BF NOTE UP MISS', 24, false);
+					animation.addByPrefix('singLEFTmiss', 'BF NOTE LEFT MISS', 24, false);
+					animation.addByPrefix('singRIGHTmiss', 'BF NOTE RIGHT MISS', 24, false);
+					animation.addByPrefix('singDOWNmiss', 'BF NOTE DOWN MISS', 24, false);
+					animation.addByPrefix('hey', 'BF HEY', 24, false);
+
+					animation.addByPrefix('firstDeath', "BF dies", 24, false);
+					animation.addByPrefix('deathLoop', "BF Dead Loop", 24, true);
+					animation.addByPrefix('deathConfirm', "BF Dead confirm", 24, false);
+
+					animation.addByPrefix('scared', 'BF idle shaking', 24);
+
+					animation.addByPrefix('stunned', 'BF hit', 24, false);
+
+					addOffset('idle', -5);
+					addOffset("singUP", -29, 27);
+					addOffset("singRIGHT", -38, -7);
+					addOffset("singLEFT", 12, -6);
+					addOffset("singDOWN", -10, -50);
+					addOffset("singUPmiss", -29, 27);
+					addOffset("singRIGHTmiss", -30, 21);
+					addOffset("singLEFTmiss", 12, 24);
+					addOffset("singDOWNmiss", -11, -19);
+					addOffset("hey", 7, 4);
+					addOffset('firstDeath', 37, 11);
+					addOffset('deathLoop', 37, 5);
+					addOffset('deathConfirm', 37, 69);
+					addOffset('scared', -4);
+					addOffset('stunned', 31, 22);
+
+					playAnim('idle');
+
+					flipX = true;
+				}
+					
+					
+
+				
 			
 			case 'bf-hell':
 				var tex = Paths.getSparrowAtlas('hellclwn/BF/BF_3rd_phase','clown');

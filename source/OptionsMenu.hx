@@ -34,6 +34,8 @@ class OptionsMenu extends MusicBeatState
 			new AccuracyOption("Display accuracy information."),
 			//new NPSDisplayOption("Shows your current Notes Per Second."),
 			new AltNoteSkinOption("Show the songs current position (as a bar)"),
+			new NewHaloOption("Show the songs current position (as a bar)"),
+			new OrangeOption("Show the songs current position (as a bar)"),
 			new RegNoteSkinOption("Show the songs current position (as a bar)"),
 			new DownscrollOption("Change the layout of the strumline.")
 			#else
@@ -44,6 +46,7 @@ class OptionsMenu extends MusicBeatState
 		new OptionCatagory("Misc", [
 			new FPSOption("Toggle the FPS Counter"),
 			new BETACSOption("Toggle BETACS Mode"),
+			new RegbfOption("Toggle bf skin"),
 			new SkyOption("Toggle sky replacement"),
 			new SundayOption("Toggle sunday")
 		]),
@@ -88,6 +91,7 @@ class OptionsMenu extends MusicBeatState
 		add(bars);
 
 
+
 		
 		for (i in 0...options.length)
 		{
@@ -112,11 +116,9 @@ class OptionsMenu extends MusicBeatState
 		offsetPog = new FlxText(125,600,0,"Offset: " + FlxG.save.data.offset);
 		offsetPog.setFormat("tahoma-bold.ttf",42,FlxColor.RED);
 		add(offsetPog);
-
 		menuShade = new FlxSprite(-1350,-1190).loadGraphic(Paths.image("menu/freeplay/Menu Shade","clown"));
 		menuShade.setGraphicSize(Std.int(menuShade.width * 0.7));
 		add(menuShade);
-
 		super.create();
 	}
 

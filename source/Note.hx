@@ -23,12 +23,17 @@ class Note extends FlxSprite
 	public var wasGoodHit:Bool = false;
 	public var prevNote:Note;
 	public var noteType:Int = 0;
+	public var halo:Bool = false;
+	public var angel:Bool = false;
+	public var warning:Bool = false;
+	public var instahalo:Bool = false;
+	public var instawarning:Bool = false;
 
 	public var sustainLength:Float = 0;
 	public var isSustainNote:Bool = false;
 
 	public var noteScore:Float = 1;
-	public var mania:Int = 0;
+	public static var mania:Int = 0;
 
 	public static var noteyOff1:Array<Float> = [4, 0, 0, 0, 0, 0];
 	public static var noteyOff2:Array<Float> = [0, 0, 0, 0, 0, 0];
@@ -81,14 +86,24 @@ class Note extends FlxSprite
 		// MAKE SURE ITS DEFINITELY OFF SCREEN?
 		y -= 2000;
 		strumTime = _strumTime + FlxG.save.data.offset;
-		if (FlxG.save.data.downscroll && noteType == 1 || FlxG.save.data.downscroll && noteType == 2)
+		
+		if (FlxG.save.data.downscroll && noteType == 1 || FlxG.save.data.downscroll && noteType == 2 || FlxG.save.data.downscroll && noteType == 4) //fixes the y value of the different note types
 			strumTime += 50;
-		else if (!FlxG.save.data.downscroll && noteType == 1 || !FlxG.save.data.downscroll && noteType == 2)
+		else if (!FlxG.save.data.downscroll && noteType == 1 || !FlxG.save.data.downscroll && noteType == 2 || !FlxG.save.data.downscroll && noteType == 4)
 			strumTime -= 50;
+		if (FlxG.save.data.downscroll && noteType == 4)
+			strumTime -= 25;
+		else if (!FlxG.save.data.downscroll && noteType == 4)
+			strumTime += 25;
 
 		strumTime = strumTime < 0 ? 0 : strumTime;
 
 		burning = _noteData > 8;
+		halo = noteType == 1;
+		angel = noteType == 2;
+		warning = noteType == 4;
+		instahalo = noteType == 5;
+		instawarning = noteType == 6;
 		//if(!isSustainNote) { burning = Std.random(3) == 1; } //Set random notes to burning
 
 		//No held fire notes :[ (Part 1)
@@ -190,9 +205,46 @@ class Note extends FlxSprite
 						animation.addByPrefix('darkhold', 'dark hold piece');
 						setGraphicSize(Std.int(width * noteScale));
 					}
-				else if(FlxG.save.data.altnoteskin == true && FlxG.save.data.regnoteskin == false)
+				else if(FlxG.save.data.altnoteskin == true && FlxG.save.data.regnoteskin == false && FlxG.save.data.orange == false)
 					{
 						frames = Paths.getSparrowAtlas('altnoteassets/NOTE_assets');
+
+						animation.addByPrefix('greenScroll', 'green0');
+						animation.addByPrefix('redScroll', 'red0');
+						animation.addByPrefix('blueScroll', 'blue0');
+						animation.addByPrefix('purpleScroll', 'purple0');
+						animation.addByPrefix('whiteScroll', 'white0');
+						animation.addByPrefix('yellowScroll', 'yellow0');
+						animation.addByPrefix('violetScroll', 'violet0');
+						animation.addByPrefix('blackScroll', 'black0');
+						animation.addByPrefix('darkScroll', 'dark0');
+
+
+						animation.addByPrefix('purpleholdend', 'pruple end hold');
+						animation.addByPrefix('greenholdend', 'green hold end');
+						animation.addByPrefix('redholdend', 'red hold end');
+						animation.addByPrefix('blueholdend', 'blue hold end');
+						animation.addByPrefix('whiteholdend', 'white hold end');
+						animation.addByPrefix('yellowholdend', 'yellow hold end');
+						animation.addByPrefix('violetholdend', 'violet hold end');
+						animation.addByPrefix('blackholdend', 'black hold end');
+						animation.addByPrefix('darkholdend', 'dark hold end');
+
+						animation.addByPrefix('purplehold', 'purple hold piece');
+						animation.addByPrefix('greenhold', 'green hold piece');
+						animation.addByPrefix('redhold', 'red hold piece');
+						animation.addByPrefix('bluehold', 'blue hold piece');
+						animation.addByPrefix('whitehold', 'white hold piece');
+						animation.addByPrefix('yellowhold', 'yellow hold piece');
+						animation.addByPrefix('violethold', 'violet hold piece');
+						animation.addByPrefix('blackhold', 'black hold piece');
+						animation.addByPrefix('darkhold', 'dark hold piece');
+						setGraphicSize(Std.int(width * noteScale));
+					}
+
+				else if(FlxG.save.data.altnoteskin == true && FlxG.save.data.regnoteskin == false && FlxG.save.data.orange == true)
+					{
+						frames = Paths.getSparrowAtlas('altnoteassets/ORANGE/NOTE_assets');
 
 						animation.addByPrefix('greenScroll', 'green0');
 						animation.addByPrefix('redScroll', 'red0');
@@ -264,21 +316,36 @@ class Note extends FlxSprite
 				setGraphicSize(Std.int(width * noteScale));
 				}
 
-				if(noteType == 1){
+				if(halo){
 				
-				
-					frames = Paths.getSparrowAtlas('fourth/mech/ALL_deathnotes', "clown");
-					animation.addByPrefix('greenScroll', 'Green Arrow');
-					animation.addByPrefix('redScroll', 'Red Arrow');
-					animation.addByPrefix('blueScroll', 'Blue Arrow');
-					animation.addByPrefix('purpleScroll', 'Purple Arrow');
-					animation.addByPrefix('whiteScroll', 'White Arrow');
-					animation.addByPrefix('yellowScroll', 'Green Arrow');
-					animation.addByPrefix('violetScroll', 'Red Arrow');
-					animation.addByPrefix('blackScroll', 'Blue Arrow');
-					animation.addByPrefix('darkScroll', 'Purple Arrow');
+					if (!FlxG.save.data.newhalo)
+						{
+							frames = Paths.getSparrowAtlas('fourth/mech/ALL_deathnotes', "clown");
+							animation.addByPrefix('greenScroll', 'Green Arrow');
+							animation.addByPrefix('redScroll', 'Red Arrow');
+							animation.addByPrefix('blueScroll', 'Blue Arrow');
+							animation.addByPrefix('purpleScroll', 'Purple Arrow');
+							animation.addByPrefix('whiteScroll', 'White Arrow');
+							animation.addByPrefix('yellowScroll', 'Green Arrow');
+							animation.addByPrefix('violetScroll', 'Red Arrow');
+							animation.addByPrefix('blackScroll', 'Blue Arrow');
+							animation.addByPrefix('darkScroll', 'Purple Arrow');
+						}
+					else
+					{
+						frames = Paths.getSparrowAtlas('fourth/mech/alt/ALL_deathnotes', "clown");
+						animation.addByPrefix('greenScroll', 'Green Arrow');
+						animation.addByPrefix('redScroll', 'Red Arrow');
+						animation.addByPrefix('blueScroll', 'Blue Arrow');
+						animation.addByPrefix('purpleScroll', 'Purple Arrow');
+						animation.addByPrefix('whiteScroll', 'White Arrow');
+						animation.addByPrefix('yellowScroll', 'Green Arrow');
+						animation.addByPrefix('violetScroll', 'Red Arrow');
+						animation.addByPrefix('blackScroll', 'Blue Arrow');
+						animation.addByPrefix('darkScroll', 'Purple Arrow');
+					}
+
 					setGraphicSize(Std.int(width * noteScale));
-					y -= 1000; //doesnt work for some fucking reason
 					updateHitbox();
 					if (PlayState.SONG.mania == 1)
 						{
@@ -294,7 +361,7 @@ class Note extends FlxSprite
 					
 						
 				}
-				if(noteType == 2){
+				if(angel){
 		
 		
 					frames = Paths.getSparrowAtlas('fourth/mech/ALL_accnotes', "clown");
@@ -308,7 +375,7 @@ class Note extends FlxSprite
 					animation.addByPrefix('blackScroll', 'Blue Arrow');
 					animation.addByPrefix('darkScroll', 'Purple Arrow');
 					setGraphicSize(Std.int(width * noteScale));
-					y -= 1000;
+					//y -= 1000;
 					updateHitbox();
 					if (PlayState.SONG.mania == 1)
 						{
@@ -324,7 +391,7 @@ class Note extends FlxSprite
 					
 
 				}
-				if(noteType == 4)
+				if(warning)
 				{
 					frames = Paths.getSparrowAtlas('warningNote');
 					animation.addByPrefix('greenScroll', 'Green Arrow');
@@ -336,6 +403,19 @@ class Note extends FlxSprite
 					animation.addByPrefix('violetScroll', 'Red Arrow');
 					animation.addByPrefix('blackScroll', 'Blue Arrow');
 					animation.addByPrefix('darkScroll', 'Purple Arrow');
+				}
+				if(instawarning)
+					{
+						frames = Paths.getSparrowAtlas('altnoteassets/NOTE_assets');
+						animation.addByPrefix('live', 'live');
+						setGraphicSize(Std.int(width * noteScale));
+						updateHitbox();
+					}
+				if(instahalo)
+				{
+					frames = Paths.getSparrowAtlas('altnoteassets/NOTE_assets');
+					animation.addByPrefix('kill', 'kill');
+					setGraphicSize(Std.int(width * noteScale));		
 				}
 					/*else
 					{
@@ -359,15 +439,24 @@ class Note extends FlxSprite
 				antialiasing = true;
 		}
 
-		if (noteType == 1)
+		if (halo)
 			{
 				setGraphicSize(Std.int(width * 0.86));
 				//updateHitbox();
 			}
-		if (noteType == 2)
+		else if (angel)
 			{
 				setGraphicSize(Std.int(width * 0.86));
 				//updateHitbox();
+			}
+		else if (instahalo)
+			{
+				animation.play('kill');
+			}
+		else if (instawarning)
+			{
+
+				animation.play('live');
 			}
 			
 
@@ -428,11 +517,24 @@ class Note extends FlxSprite
 		if (mustPress)
 		{
 			// The * 0.5 is so that it's easier to hit them too late, instead of too early
-			if (strumTime > Conductor.songPosition - (Conductor.safeZoneOffset * 1.5)
-				&& strumTime < Conductor.songPosition + (Conductor.safeZoneOffset * 0.5))
-				canBeHit = true;
+			if (!halo || !instahalo)
+				{
+					if (strumTime > Conductor.songPosition - (Conductor.safeZoneOffset * 1.5)
+						&& strumTime < Conductor.songPosition + (Conductor.safeZoneOffset * 0.5))
+						canBeHit = true;
+					else
+						canBeHit = false;
+				}
 			else
-				canBeHit = false;
+			{
+				if (strumTime > Conductor.songPosition - (Conductor.safeZoneOffset * 0.3)
+					&& strumTime < Conductor.songPosition + (Conductor.safeZoneOffset * 0.2)) // also they're almost impossible to hit late!
+					canBeHit = true;
+				else
+					canBeHit = false;
+			}
+
+
 
 			if (strumTime < Conductor.songPosition - Conductor.safeZoneOffset * Conductor.timeScale && !wasGoodHit)
 				tooLate = true;
