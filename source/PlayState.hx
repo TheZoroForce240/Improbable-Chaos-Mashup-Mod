@@ -668,6 +668,47 @@ class PlayState extends MusicBeatState
 				rock.antialiasing = true;
 				add(rock);
 			}
+		else if (SONG.song.toLowerCase() == 'absolute-chaos')
+			{
+				//trace("line 538");
+				defaultCamZoom = 0.48;
+				camHUD.zoom = 0.9;
+				curStage = 'absoluteHell';
+	
+				
+				tstatic.scrollFactor.set(0,0);
+				tstatic.setGraphicSize(Std.int(tstatic.width * 8.3));
+				tstatic.animation.add('static', [0, 1, 2], 24, true);
+				tstatic.animation.play('static');
+	
+				tstatic.alpha = 0;
+	
+				var bg:FlxSprite = new FlxSprite(-10, -10).loadGraphic(Paths.image('fourth/bg','clown'));
+		
+				bg.scrollFactor.set(0.9, 0.9);
+				bg.active = false;
+				bg.setGraphicSize(Std.int(bg.width * 4));
+
+	
+				
+				stagestart = new FlxSprite(-350, -355).loadGraphic(Paths.image('fourth/daBackground','clown'));
+	
+				stagestart.scrollFactor.set(0.95, 0.95);
+				stagestart.setGraphicSize(Std.int(stagestart.width * 1.55));
+	
+	
+				island = new FlxSprite(-1100, -660).loadGraphic(Paths.image('island_but_rocks_float','clown'));
+	
+				island.scrollFactor.set(0.95, 0.95);
+				island.setGraphicSize(Std.int(island.width * 1.55));
+				island.scale.set(2, 2);
+				island.alpha = 0;
+			if (FlxG.save.data.bg)
+				{
+					add(bg);
+					add(island);
+				}
+			}
 		else
 		{
 			defaultCamZoom = 0.9;
@@ -780,44 +821,48 @@ class PlayState extends MusicBeatState
 
 		//character stuff
 		
-		tabi = new Character(-200, 80, 'tabi');
-		agoti = new Character(-350, -100, 'agoti');
-		cass = new Character(50, 200, 'cass');
-		tordbot = new Character(-800, -2100, 'tordbot');
-		tordbot.scale.set(1.5, 1.5);
-		zardy = new Character(430, -230, 'zardy');
-		bob = new Character(450, 240, 'bob');
-		senpai = new Character(-550, -200, 'senpai');
+		if (curStage == 'auditorHell')
+			{
+				tabi = new Character(-200, 80, 'tabi');
+				agoti = new Character(-350, -100, 'agoti');
+				cass = new Character(50, 200, 'cass');
+				tordbot = new Character(-800, -2100, 'tordbot');
+				tordbot.scale.set(1.5, 1.5);
+				zardy = new Character(430, -230, 'zardy');
+				bob = new Character(450, 240, 'bob');
+				senpai = new Character(-550, -200, 'senpai');
+		
+				whitty = new Character(1380, -300, 'whitty');
+				matt = new Character(1350, 500, 'matt');
+				pico = new Character(2000, 200, 'pico');
+				hankchar = new Character(1300, -100, 'hankchar');
+				garcello = new Character(2100, -300, 'garcello');
+				shaggy = new Character(0, 0, 'shaggy');
+				ruv = new Character(2000, -350, 'ruv');
+				hex = new Character(1700, -200, 'hex');
+		
+			//	switchCharacter('')
+			//	resetCharacters()
+			//	removeCharacter('') 
+			//this is just so i can copy paste cuz i had the page split
+				tabi.alpha = 0;
+				agoti.alpha = 0;
+				cass.alpha = 0;
+				tordbot.alpha = 0;
+				zardy.alpha = 0;
+				bob.alpha = 0;
+				senpai.alpha = 0;
+		
+				whitty.alpha = 0;
+				matt.alpha = 0;
+				pico.alpha = 0;
+				hankchar.alpha = 0;
+				garcello.alpha = 0;
+				shaggy.alpha = 0;
+				ruv.alpha = 0;
+				hex.alpha = 0;
+			}
 
-		whitty = new Character(1380, -300, 'whitty');
-		matt = new Character(1350, 500, 'matt');
-		pico = new Character(2000, 200, 'pico');
-		hankchar = new Character(1300, -100, 'hankchar');
-		garcello = new Character(2100, -300, 'garcello');
-		shaggy = new Character(0, 0, 'shaggy');
-		ruv = new Character(2000, -350, 'ruv');
-		hex = new Character(1700, -200, 'hex');
-
-	//	switchCharacter('')
-	//	resetCharacters()
-	//	removeCharacter('') 
-	//this is just so i can copy paste cuz i had the page split
-		tabi.alpha = 0;
-		agoti.alpha = 0;
-		cass.alpha = 0;
-		tordbot.alpha = 0;
-		zardy.alpha = 0;
-		bob.alpha = 0;
-		senpai.alpha = 0;
-
-		whitty.alpha = 0;
-		matt.alpha = 0;
-		pico.alpha = 0;
-		hankchar.alpha = 0;
-		garcello.alpha = 0;
-		shaggy.alpha = 0;
-		ruv.alpha = 0;
-		hex.alpha = 0;
 
 
 		shaggyT = new FlxTrail(shaggy, null, 5, 7, 0.3, 0.001);
@@ -1147,7 +1192,7 @@ class PlayState extends MusicBeatState
 		startingSong = true;
 		if (FlxG.save.data.effects)
 		{
-			if (curStage == "nevada" || curStage == "nevadaSpook" || curStage == 'auditorHell' || curStage == 'shaggyHell')
+			if (curStage == "nevada" || curStage == "nevadaSpook" || curStage == 'auditorHell' || curStage == 'shaggyHell' || curStage == 'absoluteHell')
 				add(tstatic);
 		}
 
@@ -1155,7 +1200,7 @@ class PlayState extends MusicBeatState
 		if (curStage == 'auditorHell' || curStage == 'shaggyHell')
 			tstatic.alpha = 0.1;
 
-		if (curStage == 'nevadaSpook' || curStage == 'auditorHell' || curStage == 'shaggyHell')
+		if (curStage == 'nevadaSpook' || curStage == 'auditorHell' || curStage == 'shaggyHell' || curStage == 'absoluteHell')
 		{
 			tstatic.setGraphicSize(Std.int(tstatic.width * 12));
 			tstatic.x += 600;
@@ -3302,6 +3347,7 @@ class PlayState extends MusicBeatState
 									daNote.destroy();
 							}	
 						}
+						
 					});
 				}
 
