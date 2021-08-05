@@ -708,6 +708,12 @@ class PlayState extends MusicBeatState
 					add(bg);
 					add(island);
 				}
+				bobmadshake = new FlxSprite( -198, -118);
+			    bobmadshake.frames = Paths.getSparrowAtlas('bobscreen');
+			    bobmadshake.animation.addByPrefix('idle', 'BobScreen', 24);
+			    bobmadshake.scrollFactor.set(0, 0);
+			    bobmadshake.scale.set(2.5, 2.5);
+			    bobmadshake.visible = false;
 			}
 		else
 		{
@@ -862,6 +868,12 @@ class PlayState extends MusicBeatState
 				ruv.alpha = 0;
 				hex.alpha = 0;
 			}
+		if (curStage == 'absoluteHell')
+			{
+				ruv = new Character(2000, -350, 'ruv');
+				hex = new Character(1700, -200, 'hex');
+				shaggy = new Character(0, 0, 'shaggy');
+			}
 
 
 
@@ -888,6 +900,9 @@ class PlayState extends MusicBeatState
 				boyfriend.y -= 0;
 				boyfriend.x += 260;
 			case 'auditorHell':
+				boyfriend.y -= 160;
+				boyfriend.x += 950;
+			case 'absoluteHell':
 				boyfriend.y -= 160;
 				boyfriend.x += 950;
 			case 'shaggyHell': 
@@ -949,7 +964,15 @@ class PlayState extends MusicBeatState
 					add(senpai);
 					
 				}
+				if (curStage == 'absoluteHell')
+					{
+						add(hex);
+						add(ruv);
+						add(shaggy);
+					}
 				add(boyfriend);
+
+				
 		
 
 			if (curStage == 'shaggyHell')
@@ -1383,6 +1406,11 @@ class PlayState extends MusicBeatState
 			if (FlxG.save.data.preload)
 				gramlan.frames = CachedFrames.cachedInstance.fromSparrow('scoobgrem','fourth/bonus/scoobGREMLIN');
 		}
+		else if (SONG.song.toLowerCase() == 'absolute-chaos')
+			{
+				if (FlxG.save.data.preload)
+					gramlan.frames = CachedFrames.cachedInstance.fromSparrow('grem','fourth/mech/HP GREMLIN');
+			}
 
 		gramlan.setGraphicSize(Std.int(gramlan.width * 0.76));
  

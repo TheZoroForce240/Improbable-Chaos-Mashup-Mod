@@ -22,18 +22,21 @@ class StoryMenuState extends MusicBeatState
 	var scoreText:FlxText;
 
 	var weekData:Array<Dynamic> = [
-		['Improbable-Chaos']
+		['Improbable-Chaos'],
+		['Absolute-Chaos']
 	];
 	var curDifficulty:Int = 0;
 
 	public static var weekUnlocked:Array<Bool> = [true];
 
 	var weekCharacters:Array<Dynamic> = [
-		['trickyMask', 'bf', 'gf']
+		['trickyMask', 'bf', 'gf'],
+		['tricky', 'bf', 'gf']
 	];
 
 	var weekNames:Array<String> = [
-		"Madness"
+		"Madness",
+		"Chaos"
 	];
 
 	var txtWeekTitle:FlxText;
@@ -351,6 +354,32 @@ class StoryMenuState extends MusicBeatState
 						LoadingState.loadAndSwitchState(new PlayState(), true);
 					}
 				});
+				new FlxTimer().start(0.4, function(tmr:FlxTimer)
+					{
+						if (curWeek == 8 && trans.animation.curAnim == null)
+						{
+							trans.animation.play("Close");
+							var snd = new FlxSound().loadEmbedded(Paths.sound('swipe','clown'));
+							snd.play();
+						}
+						if (curWeek == 8)
+						{
+							if (trans.animation.frameIndex == 18)
+							{
+								var snd = new FlxSound().loadEmbedded(Paths.sound('clink','clown'));
+								snd.play();
+								transOut = null;
+								trans.animation.pause();
+								LoadingState.loadAndSwitchState(new PlayState(), true);
+							}
+							else
+								tmr.reset(0.1);
+						}
+						else
+						{
+							LoadingState.loadAndSwitchState(new PlayState(), true);
+						}
+					});
 
 			
 		

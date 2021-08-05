@@ -421,7 +421,62 @@ class MainMenuState extends MusicBeatState
 
 	public static function playAC()
 		{
-			FlxG.switchState(new MainMenuState());
+			FlxG.mouse.visible = false;
+		PlayState.storyPlaylist = ['Absolute-Chaos'];
+		PlayState.isStoryMode = true;
+
+		var diffic = "";
+
+		switch (curDifficulty)
+		{
+			case 0:
+				diffic = '-hard';
+			case 2:
+				diffic = '-hard';
+			case 1:
+				diffic = '-hard';
+		}
+
+		PlayState.storyDifficulty = curDifficulty;
+
+		PlayState.SONG = Song.loadFromJson('absolute-chaos' + diffic, 'absolute-chaos');
+		PlayState.storyWeek = 8;
+		PlayState.campaignScore = 0;
+
+		FlxG.sound.music.fadeOut();
+
+		if (MusicMenu.Vocals != null)
+			if (MusicMenu.Vocals.playing)
+				MusicMenu.Vocals.stop();
+
+		PlayState.playCutscene = false;
+
+		trans.animation.play("Close");
+		trans.alpha = 1;
+		var snd = new FlxSound().loadEmbedded(Paths.sound('swipe','clown'));
+		snd.play();
+
+
+		var once = false;
+
+		new FlxTimer().start(0.01, function(tmr:FlxTimer)
+			{
+					if (trans.animation.frameIndex == 10 && !once)
+					{
+						once = true;
+						FlxG.sound.music.volume = 1;
+						var snd = new FlxSound().loadEmbedded(Paths.sound('clink','clown'));
+						snd.play();
+					}
+					if (trans.animation.frameIndex == 18)
+					{
+						trans.animation.pause();
+						LoadingState.loadAndSwitchState(new PlayState(), true);
+					}
+					else
+						tmr.reset(0.01);
+			});
+
 		}
 
 	public static function playIC()
